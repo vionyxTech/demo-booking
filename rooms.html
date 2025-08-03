@@ -29,6 +29,7 @@
       max-width: 1200px; margin: 0 auto;
       display: flex; align-items: center; justify-content: space-between;
       padding: 0.5rem 2rem;
+      position: relative;
     }
     .logo-nav img {
       height: 56px;
@@ -36,13 +37,16 @@
       box-shadow: 0 2px 10px rgba(0,0,0,0.10);
       background: #fff;
       padding: 2px;
+      display: block;
+      margin: 0;
     }
-    nav ul { list-style: none; display: flex; gap: 2rem; }
+    nav ul { list-style: none; display: flex; gap: 2rem; align-items: center;}
     nav a {
       color: #fff; text-decoration: none; font-weight: 600;
       padding: 0.5rem 0; position: relative;
       letter-spacing: 0.02em;
       transition: color 0.18s;
+      display: inline-block;
     }
     nav a:hover { color: #ffe165; }
     nav a::after {
@@ -69,72 +73,89 @@
       background: linear-gradient(90deg,#15304b,#2a5298);
       color: #ffe165;
     }
-    /* MOBILE STYLES */
+    /* MOBILE NAV LAYOUT */
     @media (max-width: 700px) {
       .logo-nav {
         flex-direction: column;
-        align-items: center;
-        padding: 0.7em 0.5em 0.5em 0.5em;
-        gap: 0.1em;
+        align-items: stretch;
+        padding: 0.9em 0.5em 0.6em 0.5em;
+        gap: 0;
+        position: relative;
       }
       .logo-nav img {
         margin: 0 auto 2px auto;
         display: block;
         height: 44px;
+        order: 2;
+        position: static;
       }
-      nav ul {
+      .nav-mobile-stack {
+        width: 100vw;
+        max-width: 440px;
+        margin: 0 auto;
+        display: flex;
         flex-direction: column;
         align-items: stretch;
-        width: 100vw;
-        max-width: 420px;
-        margin: 0 auto;
-        gap: 0.45em;
-        padding-top: 0.1em;
-        padding-bottom: 0.3em;
-      }
-      nav ul li {
-        width: 100%;
-        text-align: center;
+        position: relative;
       }
       .home-btn {
-        width: 97%;
-        margin: 0.2em auto 0.25em auto;
+        width: 49vw;
+        min-width: 120px;
+        max-width: 210px;
+        margin: 0.2em auto 0.25em 0;
         display: block;
-        font-size: 1.08em;
-        letter-spacing: 0.05em;
-        padding: 0.82em 0;
+        font-size: 1.09em;
+        letter-spacing: 0.06em;
+        text-align: left;
+        border-radius: 10px;
+        position: absolute;
+        left: 1.2em;
+        top: 5px;
+        z-index: 3;
       }
-      nav a:not(.home-btn) {
+      .nav-mobile-links {
+        margin-top: 56px;
         width: 97%;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .nav-mobile-links li {
+        width: 100%;
+        text-align: center;
+        margin: 0.19em 0;
+      }
+      .nav-mobile-links a {
+        width: 100%;
         margin: 0 auto;
         display: block;
         background: rgba(36,44,88,0.18);
         border-radius: 6px;
-        font-size: 1.02em;
-        padding: 0.8em 0;
+        font-size: 1.04em;
+        padding: 0.85em 0;
+        text-align: center;
       }
-      nav a[style*="color:#ffe165"] {
+      .nav-mobile-links a[style*="color:#ffe165"] {
         color: #ffe165 !important;
         font-weight: 700;
         background: rgba(255,225,101,0.07);
       }
-      nav a:not(.home-btn):hover {
+      .nav-mobile-links a:hover {
         background: #2a5298; color: #ffe165;
       }
+      nav ul { display: none !important; }
     }
     @media (max-width: 500px) {
-      .logo-nav img { height: 38px; }
+      .logo-nav img { height: 34px; }
       h1 { font-size: 1.18rem; }
-      nav ul { gap: 0.15em; }
-      .home-btn { font-size: 1em; }
+      .home-btn { font-size: 0.97em; min-width: 88px;}
     }
     @media (min-width: 701px) {
       .logo-nav { flex-direction: row; }
-      nav ul { flex-direction: row; }
+      .nav-mobile-stack { display: none; }
+      nav ul { flex-direction: row; display: flex !important; }
+      .home-btn { position: static; margin: 0 14px 0 0; }
     }
-    /* End MOBILE STYLES */
-
-    /* Rest unchanged... */
+    /* End MOBILE NAV LAYOUT */
     .rooms-page-main {
       max-width: 1180px;
       margin: 110px auto 0 auto;
@@ -289,7 +310,7 @@
 <body>
   <header>
     <div class="logo-nav">
-      <img src="assets/images/logo.png" alt="VIONYX Logo" />
+      <!-- Desktop menu (default) -->
       <nav>
         <ul>
           <li><a class="home-btn" href="index.html">Home</a></li>
@@ -300,6 +321,18 @@
           <li><a href="booking.html">Check Availability</a></li>
         </ul>
       </nav>
+      <!-- Mobile menu stack (hidden on desktop) -->
+      <div class="nav-mobile-stack">
+        <a class="home-btn" href="index.html">Home</a>
+        <img src="assets/images/logo.png" alt="VIONYX Logo" style="margin:0 auto 5px auto; display:block;" />
+        <ul class="nav-mobile-links">
+          <li><a href="rooms.html" style="color:#ffe165;">Function Rooms</a></li>
+          <li><a href="events.html">Events</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+          <li><a href="booking.html">Check Availability</a></li>
+        </ul>
+      </div>
     </div>
   </header>
   <main class="rooms-page-main">
