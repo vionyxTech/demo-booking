@@ -29,6 +29,7 @@
       max-width: 1200px; margin: 0 auto;
       display: flex; align-items: center; justify-content: space-between;
       padding: 0.5rem 2rem;
+      position: relative;
     }
     .logo-nav img {
       height: 56px;
@@ -36,100 +37,120 @@
       box-shadow: 0 2px 10px rgba(0,0,0,0.10);
       background: #fff;
       padding: 2px;
+      display: block;
     }
-    nav ul { list-style: none; display: flex; gap: 2rem; }
-    nav a {
-      color: #fff; text-decoration: none; font-weight: 600;
-      padding: 0.5rem 0; position: relative;
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 2rem;
+      justify-content: flex-end;
+      align-items: center;
+      margin-left: auto;
+    }
+    nav ul li { display: inline; }
+    nav ul a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1em;
       letter-spacing: 0.02em;
+      padding: 0.5rem 0;
+      position: relative;
       transition: color 0.18s;
     }
-    nav a:hover { color: #ffe165; }
-    nav a::after {
+    nav ul a:hover { color: #ffe165; }
+    nav ul a::after {
       content: '';
       position: absolute; left: 0; bottom: -4px; width: 0;
       height: 2px; background: #ffdd57; transition: width 0.3s;
     }
-    nav a:hover::after { width: 100%; }
-    .home-btn {
-      background: linear-gradient(90deg, #1e3c72, #2a5298);
+    nav ul a:hover::after { width: 100%; }
+    /* Hamburger style */
+    .nav-hamburger {
+      display: none;
+      font-size: 2.5em;
       color: #fff;
-      font-weight: 700;
-      padding: 0.54em 1.45em;
-      border-radius: 8px;
-      border: none;
-      text-decoration: none;
-      font-size: 1.02em;
-      margin-right: 14px;
-      box-shadow: 0 1px 8px #21346e22;
-      transition: background 0.19s;
-      display: inline-block;
-    }
-    .home-btn:hover {
-      background: linear-gradient(90deg,#15304b,#2a5298);
-      color: #ffe165;
-    }
-    .rooms-page-main {
-      max-width: 1180px;
-      margin: 110px auto 0 auto;
-      padding: 2.5rem 1rem;
-    }
-    h1 {
-      color: #fff;
-      text-shadow: 0 2px 14px #23235a8f;
-      font-size: 2.3rem;
-      text-align: center;
-      font-weight: 900;
-      letter-spacing: 0.04em;
-      margin-bottom: 24px;
-    }
-    .gallery-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
-      gap: 2.2rem;
-      margin: 0 auto;
-      max-width: 900px;
-      justify-items: center;
-      align-items: start;
-    }
-    .gallery-grid figure {
-      overflow: hidden; border-radius: 12px;
-      box-shadow: 0 2px 14px rgba(0,0,0,0.12);
-      background: #fff;
-      transition: box-shadow 0.25s, transform 0.18s;
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      height: 100%;
-    }
-    .gallery-grid figure:hover {
-      box-shadow: 0 6px 32px 8px rgba(60,64,160,0.18);
-      transform: translateY(-4px) scale(1.023);
-    }
-    .gallery-grid img {
-      width: 100%; height: 200px; object-fit: cover; transition: transform 0.3s;
-      border-bottom: 1.5px solid #e0e6f8;
-      background: #eee;
-      display: block;
       cursor: pointer;
+      padding: 0.14em 0.34em;
+      border-radius: 50%;
+      background: linear-gradient(145deg,#2a5298 60%,#1e3c72 100%);
+      box-shadow: 0 2px 12px #22366e44;
+      border: 2px solid #fff2;
+      margin-left: 0.5em;
+      z-index: 2000;
+      transition: background 0.18s, box-shadow 0.16s, transform 0.14s;
     }
-    .gallery-grid figcaption {
-      padding: 1rem 1rem 0.6rem 1rem;
-      text-align: center;
-      font-weight: 700;
-      color: #19245c;
-      font-size: 1.14rem;
-      background: transparent;
-      letter-spacing: 0.02em;
+    .nav-hamburger:hover {
+      background: linear-gradient(135deg,#003366 60%,#003366 100%);
+      color: #ffe165;
+      box-shadow: 0 4px 24px #00336644;
+      transform: scale(1.10) rotate(5deg);
     }
-    .room-desc {
-      color: #36416b;
-      font-size: 1rem;
-      font-weight: 400;
-      padding: 0 1.1rem 1.2rem 1.1rem;
-      text-align: center;
-      background: transparent;
+    .nav-mobile-menu {
+      display: none;
+      flex-direction: column;
+      background: #21235e;
+      position: absolute;
+      top: 66px; right: 12px;
+      min-width: 180px;
+      border-radius: 13px;
+      box-shadow: 0 8px 26px #0008;
+      z-index: 2010;
+      padding: 0.2em 0;
+      border: 2px solid #2a529833;
+      transition: opacity 0.23s, transform 0.18s;
+      animation: fadein 0.18s;
+    }
+    .nav-mobile-menu.opening {
+      display: flex !important;
+      opacity: 1;
+      transform: translateY(0px) scale(1.00);
+      pointer-events: auto;
+    }
+    .nav-mobile-menu.closing {
+      opacity: 0;
+      transform: translateY(-15px) scale(0.97);
+      pointer-events: none;
+    }
+    .nav-mobile-menu a {
+      color: #fff;
+      padding: 1em 1.1em;
+      text-decoration: none;
+      font-size: 1.13em;
+      font-weight: 500;
+      border-bottom: 1px solid #3336;
       letter-spacing: 0.01em;
+      transition: background 0.18s, color 0.17s;
+    }
+    .nav-mobile-menu a:last-child { border-bottom: none; }
+    .nav-mobile-menu a:hover { background: #2a5298; color: #ffe165; border-radius: 6px;}
+    @keyframes fadein {from {opacity:0;} to {opacity:1;}}
+    @media (max-width: 700px) {
+      nav ul { display: none !important; }
+      .nav-hamburger { display: block !important; }
+      .logo-nav {
+        justify-content: center !important;
+        position: relative;
+        padding-right: 0.7em;
+      }
+      .logo-nav img {
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+        position: relative;
+        left: 0;
+        right: 0;
+      }
+      .nav-hamburger {
+        position: absolute;
+        right: 0.3em;
+        top: 50%;
+        transform: translateY(-50%);
+        margin-left: 0;
+      }
+    }
+    @media (min-width: 701px) {
+      .nav-hamburger, .nav-mobile-menu { display: none !important; }
     }
     @media (max-width: 800px) {
       .gallery-grid img { height: 130px;}
@@ -138,8 +159,6 @@
     @media (max-width: 500px) {
       .logo-nav img { height: 38px; }
       h1 { font-size: 1.18rem; }
-      nav ul { gap: 1rem; font-size: 1em; }
-      .home-btn { font-size: 0.98em; margin-right: 8px; }
       .gallery-grid { gap: 0.8rem; }
       .room-desc { font-size: 0.97rem; }
     }
@@ -242,6 +261,15 @@
           <li><a href="booking.html">Check Availability</a></li>
         </ul>
       </nav>
+      <div class="nav-hamburger" id="nav-hamburger">&#9776;</div>
+      <div class="nav-mobile-menu" id="nav-mobile-menu">
+        <a href="index.html">Home</a>
+        <a href="rooms.html" style="color:#ffe165;">Function Rooms</a>
+        <a href="events.html">Events</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="contact.html">Contact Us</a>
+        <a href="booking.html">Check Availability</a>
+      </div>
     </div>
   </header>
   <main class="rooms-page-main">
@@ -285,6 +313,51 @@
         document.getElementById('lightbox-img').src = '';
       }
     };
+
+    // Hamburger menu logic
+    const hamburger = document.getElementById('nav-hamburger');
+    const mobileMenu = document.getElementById('nav-mobile-menu');
+    let menuOpen = false;
+    hamburger.onclick = function(e) {
+      e.stopPropagation();
+      if (!menuOpen) {
+        mobileMenu.classList.remove('closing');
+        mobileMenu.style.display = "flex";
+        setTimeout(() => mobileMenu.classList.add('opening'), 10);
+        menuOpen = true;
+      } else {
+        mobileMenu.classList.remove('opening');
+        mobileMenu.classList.add('closing');
+        setTimeout(() => { mobileMenu.style.display = "none"; }, 220);
+        menuOpen = false;
+      }
+    };
+    // Close menu on link click
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.onclick = () => {
+        mobileMenu.classList.remove('opening');
+        mobileMenu.classList.add('closing');
+        setTimeout(() => { mobileMenu.style.display = "none"; }, 220);
+        menuOpen = false;
+      };
+    });
+    // Close menu on outside click/tap
+    document.addEventListener('click', function(event) {
+      if (menuOpen && !mobileMenu.contains(event.target) && event.target !== hamburger) {
+        mobileMenu.classList.remove('opening');
+        mobileMenu.classList.add('closing');
+        setTimeout(() => { mobileMenu.style.display = "none"; }, 220);
+        menuOpen = false;
+      }
+    });
+    // Also close on window resize if wide
+    window.addEventListener('resize', function() {
+      if (window.innerWidth > 700) {
+        mobileMenu.style.display = "none";
+        mobileMenu.classList.remove('opening','closing');
+        menuOpen = false;
+      }
+    });
   </script>
 
   <!-- Floating WhatsApp & Facebook Icons -->
