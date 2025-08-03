@@ -6,268 +6,47 @@
   <title>Vionyx Venue Booking</title>
   <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css" rel="stylesheet" />
   <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      margin: 0;
-      background-image: url('https://images.unsplash.com/photo-1565182999561-4b8ec785b24e?auto=format&fit=crop&w=1500&q=80');
-      background-size: cover;
-      background-position: center;
-      background-attachment: fixed;
-      background-repeat: no-repeat;
-      background-color: rgba(0, 0, 0, 0.5);
-      background-blend-mode: overlay;
-      color: #222;
-    }
-    .home-btn {
-      position: fixed;
-      top: 20px;
-      left: 20px;
-      z-index: 1002;
-      background: linear-gradient(90deg, #1e3c72, #2a5298);
-      color: #fff;
-      font-weight: 600;
-      padding: 0.29em 1.08em;
-      border-radius: 8px;
-      border: none;
-      text-decoration: none;
-      font-size: 0.95em;
-      box-shadow: 0 1px 8px #21346e22;
-      transition: background 0.19s, color 0.17s;
-      display: inline-block;
-      min-width: 56px;
-      text-align: center;
-      opacity: 0.93;
-    }
-    .home-btn:hover {
-      background: linear-gradient(90deg,#15304b,#2a5298);
-      color: #ffe165;
-      opacity: 1;
-    }
-    @media (max-width:600px) {
-      .home-btn { top: 10px; left: 8px; font-size: 0.85em; padding: 0.18em 0.65em;}
-    }
-    header {
-      background-image: url('https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=1200&q=80');
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      min-height: 100px;
-      color: white;
-      padding: 1.5rem 1rem 1.5rem 1rem;
-      text-align: center;
-      font-size: 2rem;
-      font-weight: bold;
-      box-shadow: 0 8px 32px 0 rgba(0,0,0,0.16);
-      position: relative;
-      border: none;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.6rem;
-    }
-    header::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: rgba(0, 51, 102, 0.32);
-      z-index: 0;
-    }
-    .header-title {
-      position: relative;
-      z-index: 1;
-      text-shadow: 0 3px 16px rgba(0,0,0,0.30);
-      font-family: 'Segoe UI', SegoeUI-Bold, sans-serif;
-      letter-spacing: 1.5px;
-    }
-    .container {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      padding: 1rem;
-      background-color: rgba(255, 255, 255, 0.85);
-      border-radius: 12px;
-      max-width: 980px;
-      margin: 1.5rem auto;
-      box-shadow: 0 6px 24px rgba(0,0,0,0.3);
-    }
-    .info-note {
-      font-size: 1.1rem;
-      color: #003366;
-      font-weight: 600;
-      margin-left: 0.5rem;
-    }
-    .selected-date-time {
-      display: none;
-      background: #eaf3ff;
-      border-radius: 8px;
-      margin: 0.5rem 0 1.1rem 0;
-      padding: 0.75rem 1rem;
-      color: #0057b7;
-      font-weight: 600;
-      font-size: 1.13em;
-      text-align: center;
-      box-shadow: 0 1px 6px #bedcff36;
-    }
-    .calendar-bg-image {
-      position: relative;
-      overflow: hidden;
-      padding: 0;
-    }
-    .calendar-bg-image::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      z-index: 0;
-      background-image: url('https://images.unsplash.com/photo-1519677100203-a0e668c92439?auto=format&fit=crop&w=900&q=80');
-      background-size: cover;
-      background-position: center;
-      filter: blur(2px) brightness(0.65);
-      opacity: 0.8;
-      pointer-events: none;
-    }
-    #calendar {
-      position: relative;
-      z-index: 1;
-      background: transparent !important;
-    }
-    .fc {
-      background: transparent !important;
-      border-radius: 8px;
-      color: #fff;
-    }
+    /* ... your existing styles ... */
+    body {font-family:'Segoe UI',sans-serif;margin:0;background-image:url('https://images.unsplash.com/photo-1565182999561-4b8ec785b24e?auto=format&fit=crop&w=1500&q=80');background-size:cover;background-position:center;background-attachment:fixed;background-repeat:no-repeat;background-color:rgba(0,0,0,0.5);background-blend-mode:overlay;color:#222;}
+    .home-btn {position:fixed;top:20px;left:20px;z-index:1002;background:linear-gradient(90deg,#1e3c72,#2a5298);color:#fff;font-weight:600;padding:0.29em 1.08em;border-radius:8px;border:none;text-decoration:none;font-size:0.95em;box-shadow:0 1px 8px #21346e22;transition:background 0.19s,color 0.17s;display:inline-block;min-width:56px;text-align:center;opacity:0.93;}
+    .home-btn:hover {background:linear-gradient(90deg,#15304b,#2a5298);color:#ffe165;opacity:1;}
+    @media (max-width:600px) {.home-btn {top:10px;left:8px;font-size:0.85em;padding:0.18em 0.65em;}}
+    header {background-image:url('https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=1200&q=80');background-size:cover;background-position:center;background-repeat:no-repeat;min-height:100px;color:white;padding:1.5rem 1rem 1.5rem 1rem;text-align:center;font-size:2rem;font-weight:bold;box-shadow:0 8px 32px 0 rgba(0,0,0,0.16);position:relative;border:none;display:flex;flex-direction:column;align-items:center;gap:0.6rem;}
+    header::after {content:"";position:absolute;inset:0;background:rgba(0,51,102,0.32);z-index:0;}
+    .header-title {position:relative;z-index:1;text-shadow:0 3px 16px rgba(0,0,0,0.30);font-family:'Segoe UI',SegoeUI-Bold,sans-serif;letter-spacing:1.5px;}
+    .container {display:flex;flex-direction:column;gap:1rem;padding:1rem;background-color:rgba(255,255,255,0.85);border-radius:12px;max-width:980px;margin:1.5rem auto;box-shadow:0 6px 24px rgba(0,0,0,0.3);}
+    .info-note {font-size:1.1rem;color:#003366;font-weight:600;margin-left:0.5rem;}
+    .selected-date-time {display:none;background:#eaf3ff;border-radius:8px;margin:0.5rem 0 1.1rem 0;padding:0.75rem 1rem;color:#0057b7;font-weight:600;font-size:1.13em;text-align:center;box-shadow:0 1px 6px #bedcff36;}
+    .calendar-bg-image {position:relative;overflow:hidden;padding:0;}
+    .calendar-bg-image::before {content:"";position:absolute;inset:0;z-index:0;background-image:url('https://images.unsplash.com/photo-1519677100203-a0e668c92439?auto=format&fit=crop&w=900&q=80');background-size:cover;background-position:center;filter:blur(2px) brightness(0.65);opacity:0.8;pointer-events:none;}
+    #calendar {position:relative;z-index:1;background:transparent !important;}
+    .fc {background:transparent !important;border-radius:8px;color:#fff;}
     .fc .fc-col-header-cell-cushion,
     .fc .fc-daygrid-day-number,
     .fc .fc-daygrid-event,
-    .fc .fc-daygrid-event .fc-event-title {
-      color: #fff !important;
-      font-weight: 700;
-      text-shadow: 0 2px 6px #222, 0 0 2px #000;
-    }
-    .fc .fc-daygrid-day:hover {
-      background-color: rgba(0,87,183,0.13) !important;
-    }
-    #slot-list {
-      display: flex; flex-wrap: wrap; gap: 0.5rem;
-    }
-    .slot {
-      flex: 1 0 30%;
-      padding: 0.6rem;
-      border-radius: 6px;
-      background: rgba(230, 240, 255, 0.8);
-      border: 1px solid #0057b7;
-      text-align: center;
-      cursor: pointer;
-      font-weight: 500;
-      color: #003366;
-    }
-    .slot.booked {
-      background: rgba(200, 200, 200, 0.5);
-      color: #666;
-      pointer-events: none;
-    }
-    .slot.selected {
-      background-color: #0057b7;
-      color: white;
-      font-weight: bold;
-    }
-    #booking-form { display: none; flex-direction: column; gap: 0.7rem; }
-    label { font-weight: 600; }
-    input, textarea, button {
-      padding: 0.6rem; border-radius: 6px; border: 1px solid #ccc; width: 100%;
-    }
-    button {
-      background-color: #0057b7;
-      color: white; border: none; font-size: 1rem; transition: background-color 0.2s;
-    }
-    button:hover { background-color: #004494; }
-    #greetings-section { 
-      display: none; 
-      flex-direction: column; 
-      align-items: center; 
-      gap: 1.2rem;
-      background: #eaf3ff;
-      border-radius: 10px;
-      margin-top: 1.2rem;
-      padding: 2rem 1.5rem 1.2rem 1.5rem;
-      box-shadow: 0 2px 16px #bedcff36;
-    }
-    #greetings-section h3 {
-      color: #0057b7;
-      margin-bottom: 0.2em;
-      font-size: 1.23rem;
-      text-align: center;
-    }
-    #greetings-section p {
-      color: #1a2954;
-      font-size: 1.08rem;
-      text-align: center;
-    }
-    #paynow-btn {
-      padding: 0.7em 2.3em;
-      font-size: 1.13em;
-      font-weight: 700;
-      background: linear-gradient(90deg,#0057b7,#1e7eda);
-      border-radius: 9px;
-      border: none;
-      color: #fff;
-      margin-top: 0.7em;
-      cursor: pointer;
-      transition: background 0.18s;
-    }
-    #paynow-btn:hover {
-      background: linear-gradient(90deg,#15304b,#2a5298);
-    }
-    #payment-methods { 
-      display: none; 
-      flex-direction: column; 
-      align-items: center;
-      gap: 1.2em;
-      margin: 1.4em 0;
-    }
-    .pay-method-btn {
-      background: #fff;
-      color: #0057b7;
-      border: 2px solid #0057b7;
-      font-size: 1.13em;
-      font-weight: 600;
-      border-radius: 8px;
-      padding: 0.7em 2em;
-      margin: 0.15em 0;
-      cursor: pointer;
-      transition: background 0.17s, color 0.18s;
-      width: 240px;
-      box-shadow: 0 1px 6px #e3eafc5b;
-    }
-    .pay-method-btn:hover {
-      background: #0057b7;
-      color: #fff;
-    }
-    #payment-success {
-      display:none; 
-      flex-direction:column; 
-      align-items:center; 
-      gap:1.2rem; 
-      background:#eaf3ff; 
-      border-radius:10px; 
-      margin-top:1.2rem; 
-      padding:2rem 1.5rem 1.2rem 1.5rem; 
-      box-shadow:0 2px 16px #bedcff36;
-    }
-    #payment-success h3 {
-      color:#249f37;
-      margin-bottom: 0.3em;
-      font-size: 1.22rem;
-    }
-    #payment-success p {
-      color:#1a2954; 
-      font-size:1.08rem; 
-      text-align:center;
-    }
-    @media (max-width: 768px) {
-      .slot { flex: 1 0 45%; }
-      .container { padding: 1rem; margin: 0.5rem; border-radius: 0; }
-      header { font-size: 1.3rem; padding: 1.2rem 0.5rem 1.1rem 0.5rem; min-height: 80px; }
-    }
+    .fc .fc-daygrid-event .fc-event-title {color:#fff !important;font-weight:700;text-shadow:0 2px 6px #222,0 0 2px #000;}
+    .fc .fc-daygrid-day:hover {background-color:rgba(0,87,183,0.13) !important;}
+    #slot-list {display:flex;flex-wrap:wrap;gap:0.5rem;}
+    .slot {flex:1 0 30%;padding:0.6rem;border-radius:6px;background:rgba(230,240,255,0.8);border:1px solid #0057b7;text-align:center;cursor:pointer;font-weight:500;color:#003366;}
+    .slot.booked {background:rgba(200,200,200,0.5);color:#666;pointer-events:none;}
+    .slot.selected {background-color:#0057b7;color:white;font-weight:bold;}
+    #booking-form {display:none;flex-direction:column;gap:0.7rem;}
+    label {font-weight:600;}
+    input, textarea, button {padding:0.6rem;border-radius:6px;border:1px solid #ccc;width:100%;}
+    button {background-color:#0057b7;color:white;border:none;font-size:1rem;transition:background-color 0.2s;}
+    button:hover {background-color:#004494;}
+    #greetings-section {display:none;flex-direction:column;align-items:center;gap:1.2rem;background:#eaf3ff;border-radius:10px;margin-top:1.2rem;padding:2rem 1.5rem 1.2rem 1.5rem;box-shadow:0 2px 16px #bedcff36;}
+    #greetings-section h3 {color:#0057b7;margin-bottom:0.2em;font-size:1.23rem;text-align:center;}
+    #greetings-section p {color:#1a2954;font-size:1.08rem;text-align:center;}
+    #paynow-btn {padding:0.7em 2.3em;font-size:1.13em;font-weight:700;background:linear-gradient(90deg,#0057b7,#1e7eda);border-radius:9px;border:none;color:#fff;margin-top:0.7em;cursor:pointer;transition:background 0.18s;}
+    #paynow-btn:hover {background:linear-gradient(90deg,#15304b,#2a5298);}
+    #payment-methods {display:none;flex-direction:column;align-items:center;gap:1.2em;margin:1.4em 0;}
+    .pay-method-btn {background:#fff;color:#0057b7;border:2px solid #0057b7;font-size:1.13em;font-weight:600;border-radius:8px;padding:0.7em 2em;margin:0.15em 0;cursor:pointer;transition:background 0.17s,color 0.18s;width:240px;box-shadow:0 1px 6px #e3eafc5b;}
+    .pay-method-btn:hover {background:#0057b7;color:#fff;}
+    #payment-success {display:none;flex-direction:column;align-items:center;gap:1.2rem;background:#eaf3ff;border-radius:10px;margin-top:1.2rem;padding:2rem 1.5rem 1.2rem 1.5rem;box-shadow:0 2px 16px #bedcff36;}
+    #payment-success h3 {color:#249f37;margin-bottom:0.3em;font-size:1.22rem;}
+    #payment-success p {color:#1a2954;font-size:1.08rem;text-align:center;}
+    @media (max-width: 768px) {.slot {flex:1 0 45%;}.container {padding:1rem;margin:0.5rem;border-radius:0;}header {font-size:1.3rem;padding:1.2rem 0.5rem 1.1rem 0.5rem;min-height:80px;}}
   </style>
 </head>
 <body>
@@ -282,7 +61,6 @@
       <div id="calendar"></div>
     </div>
     <div class="calendar-card" id="slot-list"></div>
-
     <form class="calendar-card" id="booking-form">
       <div id="selected-range"></div>
       <label for="name">Full Name</label>
@@ -298,7 +76,6 @@
       <div class="total" id="totalAmount"></div>
       <button type="submit">Submit for Approval</button>
     </form>
-
     <div class="calendar-card" id="greetings-section">
       <h3>🎉 Congratulations, your booking is approved!</h3>
       <p>
@@ -307,7 +84,6 @@
       </p>
       <button id="paynow-btn">Pay Now</button>
     </div>
-
     <div class="calendar-card" id="payment-methods">
       <h3>Choose Your Payment Method</h3>
       <button class="pay-method-btn" onclick="completePayment('Card')">💳 Pay by Card (Visa/Mastercard)</button>
@@ -315,7 +91,6 @@
       <button class="pay-method-btn" onclick="completePayment('Apple/Google Pay')">📱 Apple/Google Pay</button>
       <button class="pay-method-btn" onclick="completePayment('Bank Transfer')">🏦 Bank Transfer</button>
     </div>
-
     <div class="calendar-card" id="payment-success">
       <h3>✅ Payment Successful!</h3>
       <p>
@@ -346,23 +121,47 @@
       const successDateTime = document.getElementById('success-date-time');
       let emailForReceipt = "";
 
-      // Booked events that are always present (simulate "permanent" bookings)
+      // LOTS OF BOOKINGS, VARIED DURATIONS & DATES!
       const bookedEvents = [
-        { title: 'Wedding', start: '2025-08-04T10:00:00' },
-        { title: 'Birthday', start: '2025-08-04T14:00:00' },
-        { title: 'Anniversary', start: '2025-08-06T09:00:00' },
-        { title: 'Corporate Meet', start: '2025-08-07T13:00:00' },
-        { title: 'Party', start: '2025-08-10T18:00:00' }
+        // This month (August 2025)
+        { title: 'Wedding (10:00–13:00)', start: '2025-08-04T10:00:00', end: '2025-08-04T13:00:00' },
+        { title: 'Birthday Party (14:00–19:00)', start: '2025-08-04T14:00:00', end: '2025-08-04T19:00:00' },
+        { title: 'Anniversary Lunch (11:00–15:00)', start: '2025-08-10T11:00:00', end: '2025-08-10T15:00:00' },
+        { title: 'Conference (9:00–17:00)', start: '2025-08-13T09:00:00', end: '2025-08-13T17:00:00' },
+        { title: 'Music Festival (18:00–23:30)', start: '2025-08-14T18:00:00', end: '2025-08-14T23:30:00' },
+        { title: 'Business Meetup (09:00–13:00)', start: '2025-08-19T09:00:00', end: '2025-08-19T13:00:00' },
+        { title: 'Engagement (12:00–18:00)', start: '2025-08-23T12:00:00', end: '2025-08-23T18:00:00' },
+        // September 2025
+        { title: 'Baby Shower (10:00–14:00)', start: '2025-09-03T10:00:00', end: '2025-09-03T14:00:00' },
+        { title: 'Training Session (15:00–19:00)', start: '2025-09-05T15:00:00', end: '2025-09-05T19:00:00' },
+        { title: 'Seminar (9:00–21:00)', start: '2025-09-10T09:00:00', end: '2025-09-10T21:00:00' },
+        { title: 'Workshop (9:00–13:00)', start: '2025-09-12T09:00:00', end: '2025-09-12T13:00:00' },
+        { title: 'Cultural Event (16:00–23:00)', start: '2025-09-18T16:00:00', end: '2025-09-18T23:00:00' },
+        { title: 'Yoga Retreat (multi-day)', start: '2025-09-20T07:00:00', end: '2025-09-22T12:00:00' },
+        // October 2025
+        { title: 'Fashion Show (13:00–22:00)', start: '2025-10-04T13:00:00', end: '2025-10-04T22:00:00' },
+        { title: 'Tech Conference (9:00–18:00)', start: '2025-10-15T09:00:00', end: '2025-10-15T18:00:00' },
+        // December 2025
+        { title: 'Christmas Party (18:00–23:59)', start: '2025-12-24T18:00:00', end: '2025-12-24T23:59:00' },
+        { title: 'Boxing Day Bash (11:00–23:00)', start: '2025-12-26T11:00:00', end: '2025-12-26T23:00:00' },
+        // January 2026
+        { title: 'New Year Gala (17:00–01:00)', start: '2026-01-01T17:00:00', end: '2026-01-02T01:00:00' },
+        // March 2026
+        { title: 'Medical Conference (8:00–22:00)', start: '2026-03-12T08:00:00', end: '2026-03-12T22:00:00' },
+        // May 2026 (multi-day)
+        { title: 'Trade Expo (multi-day)', start: '2026-05-01T10:00:00', end: '2026-05-03T20:00:00' },
+        // June 2026
+        { title: 'Kids Summer Camp (8:00–19:00)', start: '2026-06-10T08:00:00', end: '2026-06-10T19:00:00' },
+        // July 2026
+        { title: 'Mega Wedding (08:00–22:00)', start: '2026-07-18T08:00:00', end: '2026-07-18T22:00:00' }
       ];
-      // Session bookings, permanent till site reload
       let sessionBookedEvents = [];
 
-      // FIX: Always respond to tap/click on a date!
       const calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: 'dayGridMonth',
         height: 'auto',
         selectable: true,
-        displayEventTime: false, // <-- This hides "10a"/"2p"
+        displayEventTime: true, // <-- always show start/end time
         select: function (info) {
           renderSlots(info.startStr);
           showPopup("Please select a time slot");
