@@ -20,13 +20,13 @@
     }
     .home-btn {
       position: fixed;
-      top: 20px;
-      left: 20px;
+      top: 18px;
+      left: 10px;
       z-index: 1002;
       background: linear-gradient(90deg, #1e3c72, #2a5298);
       color: #fff;
       font-weight: 600;
-      padding: 0.29em 1.08em;
+      padding: 0.28em 1.08em;
       border-radius: 8px;
       border: none;
       text-decoration: none;
@@ -44,16 +44,15 @@
       opacity: 1;
     }
     @media (max-width:600px) {
-      .home-btn { top: 10px; left: 8px; font-size: 0.85em; padding: 0.18em 0.65em;}
+      .home-btn { top: 9px; left: 4px; font-size: 0.86em; padding: 0.13em 0.62em;}
     }
     header {
       background-image: url('https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=1200&q=80');
       background-size: cover;
       background-position: center;
-      background-repeat: no-repeat;
-      min-height: 100px;
+      min-height: 80px;
       color: white;
-      padding: 1.5rem 1rem 1.5rem 1rem;
+      padding: 1.2rem 1rem 1.1rem 1rem;
       text-align: center;
       font-size: 2rem;
       font-weight: bold;
@@ -84,17 +83,18 @@
       flex-direction: column;
       gap: 1rem;
       padding: 1rem;
-      background-color: rgba(255, 255, 255, 0.85);
+      background-color: rgba(255, 255, 255, 0.88);
       border-radius: 12px;
       max-width: 980px;
       margin: 1.5rem auto;
-      box-shadow: 0 6px 24px rgba(0,0,0,0.3);
+      box-shadow: 0 6px 24px rgba(0,0,0,0.25);
     }
     .info-note {
-      font-size: 1.1rem;
+      font-size: 1.07rem;
       color: #003366;
       font-weight: 600;
       margin-left: 0.5rem;
+      margin-bottom: 0.3em;
     }
     .selected-date-time {
       display: none;
@@ -104,7 +104,7 @@
       padding: 0.75rem 1rem;
       color: #0057b7;
       font-weight: 600;
-      font-size: 1.13em;
+      font-size: 1.08em;
       text-align: center;
       box-shadow: 0 1px 6px #bedcff36;
     }
@@ -134,6 +134,7 @@
       background: transparent !important;
       border-radius: 8px;
       color: #fff;
+      min-width: 100%;
     }
     .fc .fc-col-header-cell-cushion,
     .fc .fc-daygrid-day-number,
@@ -142,49 +143,64 @@
       color: #fff !important;
       font-weight: 700;
       text-shadow: 0 2px 6px #222, 0 0 2px #000;
+      font-size: 1em;
     }
     .fc .fc-daygrid-day:hover {
       background-color: rgba(0,87,183,0.13) !important;
     }
     #slot-list {
-      display: flex; flex-wrap: wrap; gap: 0.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.1em;
     }
     .slot {
-      flex: 1 0 30%;
+      flex: 1 0 28%;
       padding: 0.6rem;
       border-radius: 6px;
-      background: rgba(230, 240, 255, 0.8);
+      background: rgba(230, 240, 255, 0.88);
       border: 1px solid #0057b7;
       text-align: center;
       cursor: pointer;
       font-weight: 500;
       color: #003366;
+      font-size: 1.09em;
+      margin-bottom: 0.22em;
+      user-select: none;
+      transition: background .19s, color .18s;
     }
     .slot.booked {
       background: rgba(200, 200, 200, 0.5);
       color: #666;
       pointer-events: none;
+      border: 1px solid #b2b2b2;
+      text-decoration: line-through;
+      opacity: 0.69;
     }
     .slot.selected {
       background-color: #0057b7;
       color: white;
       font-weight: bold;
+      border: 2px solid #2a5298;
+      box-shadow: 0 1px 8px #2a529822;
     }
     #booking-form { display: none; flex-direction: column; gap: 0.7rem; }
-    label { font-weight: 600; }
+    label { font-weight: 600; margin-top: 0.07em; }
     input, textarea, button {
       padding: 0.6rem; border-radius: 6px; border: 1px solid #ccc; width: 100%;
     }
     button {
       background-color: #0057b7;
       color: white; border: none; font-size: 1rem; transition: background-color 0.2s;
+      font-weight: 600;
+      letter-spacing: 0.02em;
     }
     button:hover { background-color: #004494; }
     #greetings-section { 
       display: none; 
       flex-direction: column; 
       align-items: center; 
-      gap: 1.2rem;
+      gap: 1.1rem;
       background: #eaf3ff;
       border-radius: 10px;
       margin-top: 1.2rem;
@@ -194,17 +210,17 @@
     #greetings-section h3 {
       color: #0057b7;
       margin-bottom: 0.2em;
-      font-size: 1.23rem;
+      font-size: 1.14rem;
       text-align: center;
     }
     #greetings-section p {
       color: #1a2954;
-      font-size: 1.08rem;
+      font-size: 1.05rem;
       text-align: center;
     }
     #paynow-btn {
       padding: 0.7em 2.3em;
-      font-size: 1.13em;
+      font-size: 1.08em;
       font-weight: 700;
       background: linear-gradient(90deg,#0057b7,#1e7eda);
       border-radius: 9px;
@@ -221,21 +237,22 @@
       display: none; 
       flex-direction: column; 
       align-items: center;
-      gap: 1.2em;
-      margin: 1.4em 0;
+      gap: 1.1em;
+      margin: 1.3em 0;
     }
     .pay-method-btn {
       background: #fff;
       color: #0057b7;
       border: 2px solid #0057b7;
-      font-size: 1.13em;
+      font-size: 1.08em;
       font-weight: 600;
       border-radius: 8px;
       padding: 0.7em 2em;
-      margin: 0.15em 0;
+      margin: 0.14em 0;
       cursor: pointer;
       transition: background 0.17s, color 0.18s;
-      width: 240px;
+      width: 98%;
+      max-width: 260px;
       box-shadow: 0 1px 6px #e3eafc5b;
     }
     .pay-method-btn:hover {
@@ -246,7 +263,7 @@
       display:none; 
       flex-direction:column; 
       align-items:center; 
-      gap:1.2rem; 
+      gap:1.15rem; 
       background:#eaf3ff; 
       border-radius:10px; 
       margin-top:1.2rem; 
@@ -255,18 +272,28 @@
     }
     #payment-success h3 {
       color:#249f37;
-      margin-bottom: 0.3em;
-      font-size: 1.22rem;
+      margin-bottom: 0.27em;
+      font-size: 1.09rem;
     }
     #payment-success p {
       color:#1a2954; 
-      font-size:1.08rem; 
+      font-size:1.02rem; 
       text-align:center;
     }
-    @media (max-width: 768px) {
-      .slot { flex: 1 0 45%; }
-      .container { padding: 1rem; margin: 0.5rem; border-radius: 0; }
-      header { font-size: 1.3rem; padding: 1.2rem 0.5rem 1.1rem 0.5rem; min-height: 80px; }
+    @media (max-width: 800px) {
+      .container { padding: 0.7rem; margin: 0.35rem; border-radius: 0; }
+      header { font-size: 1.22rem; padding: 1.05rem 0.28rem 0.98rem 0.28rem; min-height: 64px; }
+      #calendar { min-width: 98vw; }
+      .calendar-card, #slot-list, #booking-form { border-radius: 7px; }
+      .slot { flex: 1 0 44%; font-size: 0.98em; padding: 0.5rem;}
+      #slot-list { gap: 0.3rem; }
+    }
+    @media (max-width: 600px) {
+      .container { padding: 0.35rem; }
+      .slot { flex: 1 0 100%; font-size: 0.99em;}
+      .calendar-card, #slot-list, #booking-form { border-radius: 5px; }
+      #calendar { font-size: 0.94em; }
+      header { font-size: 1.09rem; padding: 0.6rem 0.11rem 0.65rem 0.11rem; }
     }
   </style>
 </head>
@@ -283,16 +310,16 @@
     </div>
     <div class="calendar-card" id="slot-list"></div>
 
-    <form class="calendar-card" id="booking-form">
+    <form class="calendar-card" id="booking-form" autocomplete="on">
       <div id="selected-range"></div>
       <label for="name">Full Name</label>
-      <input type="text" id="name" required />
+      <input type="text" id="name" required autocomplete="name"/>
       <label for="email">Email Address</label>
-      <input type="email" id="email" required />
+      <input type="email" id="email" required autocomplete="email"/>
       <label for="phone">Phone Number</label>
-      <input type="tel" id="phone" required />
+      <input type="tel" id="phone" required autocomplete="tel"/>
       <label for="function">Function Details</label>
-      <textarea id="function" rows="3" required></textarea>
+      <textarea id="function" rows="3" required autocomplete="off"></textarea>
       <label for="attendees">Number of Persons Attending</label>
       <input type="number" id="attendees" min="1" required />
       <div class="total" id="totalAmount"></div>
@@ -348,11 +375,11 @@
 
       // Booked events that are always present (simulate "permanent" bookings)
       const bookedEvents = [
-        { title: 'Wedding', start: '2025-08-04T10:00:00' },
-        { title: 'Birthday', start: '2025-08-04T14:00:00' },
-        { title: 'Anniversary', start: '2025-08-06T09:00:00' },
-        { title: 'Corporate Meet', start: '2025-08-07T13:00:00' },
-        { title: 'Party', start: '2025-08-10T18:00:00' }
+        { title: 'Wedding', start: '2025-08-04T10:00:00', end: '2025-08-04T14:00:00' },
+        { title: 'Birthday', start: '2025-08-04T15:00:00', end: '2025-08-04T17:00:00' },
+        { title: 'Anniversary', start: '2025-08-06T09:00:00', end: '2025-08-06T11:00:00' },
+        { title: 'Corporate Meet', start: '2025-08-07T13:00:00', end: '2025-08-07T17:00:00' },
+        { title: 'Party', start: '2025-08-10T18:00:00', end: '2025-08-10T23:00:00' }
       ];
       // Session bookings, permanent till site reload
       let sessionBookedEvents = [];
@@ -361,12 +388,21 @@
         initialView: 'dayGridMonth',
         height: 'auto',
         selectable: true,
-        displayEventTime: false, // <-- This hides "10a"/"2p"
+        displayEventTime: true,
+        eventTimeFormat: { hour: '2-digit', minute: '2-digit', hour12: true },
         select: function (info) {
           renderSlots(info.startStr);
           showPopup("Please select a time slot");
         },
-        events: [...bookedEvents]
+        events: bookedEvents.map(e => ({
+          title: e.title + ' (' + formatHour(new Date(e.start).getHours()) + ' - ' + formatHour(new Date(e.end).getHours()) + ')',
+          start: e.start, end: e.end
+        })).concat(
+          sessionBookedEvents.map(e => ({
+            title: e.title,
+            start: e.start, end: e.end
+          }))
+        )
       });
       calendar.render();
 
@@ -390,11 +426,13 @@
         const allBookedRanges = [
           ...bookedEvents.filter(e => e.start.startsWith(date)).map(e => ({
             min: new Date(e.start).getHours(),
-            max: new Date(e.end || e.start).getHours()
+            max: new Date(e.end || e.start).getHours(),
+            name: e.title
           })),
           ...sessionBookedEvents.filter(e => e.start.startsWith(date)).map(e => ({
             min: new Date(e.start).getHours(),
-            max: new Date(e.end || e.start).getHours()
+            max: new Date(e.end || e.start).getHours(),
+            name: e.title
           }))
         ];
 
@@ -403,11 +441,14 @@
         hours.forEach(hour => {
           const slot = document.createElement('div');
           slot.className = 'slot';
-          slot.textContent = `${hour}:00`;
+          slot.textContent = `${formatHour(hour)}`;
           slot.dataset.hour = hour;
           // Is this hour inside any booked range?
-          if (allBookedRanges.some(r => hour >= r.min && hour <= r.max)) {
+          const booked = allBookedRanges.find(r => hour >= r.min && hour < r.max);
+          if (booked) {
             slot.classList.add('booked');
+            slot.title = `Booked: ${booked.name} (${formatHour(booked.min)}-${formatHour(booked.max)})`;
+            slot.textContent += ` — Booked (${booked.name})`;
           } else {
             slot.onclick = () => handleSlotClick(hour);
           }
@@ -435,7 +476,7 @@
             ].filter(e=>e.start.startsWith(currentDate)).some(e=>{
               const startH=new Date(e.start).getHours();
               const endH=new Date(e.end || e.start).getHours();
-              return Math.max(startH,min) <= Math.min(endH,max);
+              return Math.max(startH,min) < Math.min(endH,max);
             })
           ) {
             showPopup("Some slots in this range are booked"); resetSlotSelection(); return;
@@ -464,7 +505,10 @@
       }
       function resetSlotSelection(){ startHour=endHour=null; finalTotal=0; selectedRangeText.textContent=''; totalAmountDisplay.textContent=''; bookingForm.style.display='none'; greetingsSection.style.display='none'; paymentMethods.style.display='none'; paymentSuccess.style.display='none'; allSlotDivs.forEach(el=>el.classList.remove('selected')); selectedDateTimeDisplay.style.display = 'none'; globalDateTimeString = ''; sessionBookingRange = null; }
 
-      function formatHour(h){const suf=h>=12?'PM':'AM', hr=h>12?h-12:h; return `${hr}:00 ${suf}`; }
+      function formatHour(h){
+        const suf=h>=12?'PM':'AM', hr=h>12?h-12:h===0?12:h;
+        return `${hr}:00 ${suf}`;
+      }
 
       bookingForm.onsubmit = e => {
         e.preventDefault();
@@ -475,7 +519,7 @@
         if (sessionBookingRange) {
           const { date, min, max } = sessionBookingRange;
           const dtStart = new Date(date); dtStart.setHours(min, 0, 0, 0);
-          const dtEnd = new Date(date); dtEnd.setHours(max, 0, 0, 0);
+          const dtEnd = new Date(date); dtEnd.setHours(max+1, 0, 0, 0);
           // Grab function detail (strip newlines)
           const functionDetail = (document.getElementById('function').value || '').replace(/\s+/g,' ').trim();
           const event = {
