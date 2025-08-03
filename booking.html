@@ -110,9 +110,8 @@
     }
     .calendar-bg-image {
       position: relative;
-      overflow-x: auto;
+      overflow: hidden;
       padding: 0;
-      -webkit-overflow-scrolling: touch;
     }
     .calendar-bg-image::before {
       content: "";
@@ -130,15 +129,11 @@
       position: relative;
       z-index: 1;
       background: transparent !important;
-      min-width: 340px;
-      width: 100%;
-      box-sizing: border-box;
     }
     .fc {
       background: transparent !important;
       border-radius: 8px;
       color: #fff;
-      /* Don't force a width */
     }
     .fc .fc-col-header-cell-cushion,
     .fc .fc-daygrid-day-number,
@@ -152,53 +147,37 @@
       background-color: rgba(0,87,183,0.13) !important;
     }
     #slot-list {
-      display: flex; flex-wrap: wrap; gap: 0.7rem; margin-bottom: 0.7rem;
+      display: flex; flex-wrap: wrap; gap: 0.5rem;
     }
     .slot {
-      flex: 1 0 29%;
-      min-width: 92px;
-      min-height: 44px;
-      margin-bottom: 0.5rem;
-      padding: 0.7rem 0.2rem;
-      border-radius: 9px;
-      background: rgba(230, 240, 255, 0.95);
-      border: 2px solid #0057b7;
+      flex: 1 0 30%;
+      padding: 0.6rem;
+      border-radius: 6px;
+      background: rgba(230, 240, 255, 0.8);
+      border: 1px solid #0057b7;
       text-align: center;
       cursor: pointer;
-      font-weight: 600;
+      font-weight: 500;
       color: #003366;
-      font-size: 1.12rem;
-      user-select: none;
-      transition: background 0.13s, color 0.13s, box-shadow 0.16s;
-      box-shadow: 0 1px 5px #0057b728;
-      touch-action: manipulation;
     }
     .slot.booked {
-      background: rgba(200, 200, 200, 0.6);
-      color: #aaa;
+      background: rgba(200, 200, 200, 0.5);
+      color: #666;
       pointer-events: none;
-      border: 1px solid #ccc;
-      text-decoration: line-through;
-      font-weight: 400;
-      opacity: 0.68;
     }
     .slot.selected {
       background-color: #0057b7;
       color: white;
       font-weight: bold;
-      box-shadow: 0 2px 8px #0057b756;
-      border-width: 2.5px;
     }
     #booking-form { display: none; flex-direction: column; gap: 0.7rem; }
     label { font-weight: 600; }
     input, textarea, button {
       padding: 0.6rem; border-radius: 6px; border: 1px solid #ccc; width: 100%;
-      font-size: 1rem;
     }
     button {
       background-color: #0057b7;
       color: white; border: none; font-size: 1rem; transition: background-color 0.2s;
-      min-height: 48px;
     }
     button:hover { background-color: #004494; }
     #greetings-section { 
@@ -234,7 +213,6 @@
       margin-top: 0.7em;
       cursor: pointer;
       transition: background 0.18s;
-      min-height: 48px;
     }
     #paynow-btn:hover {
       background: linear-gradient(90deg,#15304b,#2a5298);
@@ -259,7 +237,6 @@
       transition: background 0.17s, color 0.18s;
       width: 240px;
       box-shadow: 0 1px 6px #e3eafc5b;
-      min-height: 44px;
     }
     .pay-method-btn:hover {
       background: #0057b7;
@@ -287,16 +264,9 @@
       text-align:center;
     }
     @media (max-width: 768px) {
-      .slot { flex: 1 0 45%; font-size: 1.1rem; min-width: 44vw; }
-      .container { padding: 0.6rem; margin: 0.5rem; border-radius: 0; }
-      header { font-size: 1.23rem; padding: 1.1rem 0.5rem 1.0rem 0.5rem; min-height: 65px; }
-      #calendar { min-width: 280px; }
-      input, textarea, button { font-size: 1.01rem; min-height: 46px; }
-      .pay-method-btn { min-width: 60vw; font-size: 1em; }
-    }
-    @media (max-width: 500px) {
-      .slot { flex: 1 0 98%; min-width: 95vw; font-size: 1.09rem; }
-      #calendar { min-width: 220px; }
+      .slot { flex: 1 0 45%; }
+      .container { padding: 1rem; margin: 0.5rem; border-radius: 0; }
+      header { font-size: 1.3rem; padding: 1.2rem 0.5rem 1.1rem 0.5rem; min-height: 80px; }
     }
   </style>
 </head>
@@ -308,7 +278,7 @@
   <div class="container">
     <div class="info-note">Select a date to start booking</div>
     <div id="selected-date-time" class="selected-date-time"></div>
-    <div class="calendar-card calendar-bg-image" id="calendar-wrapper" style="overflow-x:auto;">
+    <div class="calendar-card calendar-bg-image" id="calendar-wrapper">
       <div id="calendar"></div>
     </div>
     <div class="calendar-card" id="slot-list"></div>
@@ -387,6 +357,7 @@
       // Session bookings, permanent till site reload
       let sessionBookedEvents = [];
 
+      // FIX: Always respond to tap/click on a date!
       const calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: 'dayGridMonth',
         height: 'auto',
@@ -394,6 +365,10 @@
         displayEventTime: false, // <-- This hides "10a"/"2p"
         select: function (info) {
           renderSlots(info.startStr);
+          showPopup("Please select a time slot");
+        },
+        dateClick: function(info) {
+          renderSlots(info.dateStr);
           showPopup("Please select a time slot");
         },
         events: [...bookedEvents]
@@ -439,11 +414,7 @@
           if (allBookedRanges.some(r => hour >= r.min && hour <= r.max)) {
             slot.classList.add('booked');
           } else {
-            // Touch/tap events for mobile
-            slot.onclick = slot.ontouchstart = (e) => { 
-              e.preventDefault(); 
-              handleSlotClick(hour);
-            };
+            slot.onclick = () => handleSlotClick(hour);
           }
           allSlotDivs.push(slot);
           slotList.appendChild(slot);
