@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Vionyx Venue Booking</title>
+  <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      background-image: url('https://images.unsplash.com/photo-1565182999561-4b8ec785b24e?auto=format&fit=crop&w=1500&q=80');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      background-repeat: no-repeat;
+      background-color: rgba(0, 0, 0, 0.5);
+      background-blend-mode: overlay;
+      color: #222;
+    }
+    .home-btn {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 1002;
+      background: linear-gradient(90deg, #1e3c72, #2a5298);
+      color: #fff;
+      font-weight: 600;
+      padding: 0.29em 1.08em;
+      border-radius: 8px;
+      border: none;
+      text-decoration: none;
+      font-size: 0.95em;
+      box-shadow: 0 1px 8px #21346e22;
+      transition: background 0.19s, color 0.17s;
+      display: inline-block;
+      min-width: 56px;
+      text-align: center;
+      opacity: 0.93;
+    }
+    .home-btn:hover {
+      background: linear-gradient(90deg,#15304b,#2a5298);
+      color: #ffe165;
+      opacity: 1;
+    }
+    @media (max-width:600px) {
+      .home-btn { top: 10px; left: 8px; font-size: 0.85em; padding: 0.18em 0.65em;}
+    }
+    header {
+      background-image: url('https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=1200&q=80');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      min-height: 100px;
+      color: white;
+      padding: 1.5rem 1rem 1.5rem 1rem;
+      text-align: center;
+      font-size: 2rem;
+      font-weight: bold;
+      box-shadow: 0 8px 32px 0 rgba(0,0,0,0.16);
+      position: relative;
+      border: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    header::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 51, 102, 0.32);
+      z-index: 0;
+    }
+    .header-title {
+      position: relative;
+      z-index: 1;
+      text-shadow: 0 3px 16px rgba(0,0,0,0.30);
+      font-family: 'Segoe UI', SegoeUI-Bold, sans-serif;
+      letter-spacing: 1.5px;
+    }
+    .container {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      padding: 1rem;
+      background-color: rgba(255, 255, 255, 0.85);
+      border-radius: 12px;
+      max-width: 980px;
+      margin: 1.5rem auto;
+      box-shadow: 0 6px 24px rgba(0,0,0,0.3);
+    }
+    .info-note {
+      font-size: 1.1rem;
+      color: #003366;
+      font-weight: 600;
+      margin-left: 0.5rem;
+    }
+    .selected-date-time {
+      display: none;
+      background: #eaf3ff;
+      border-radius: 8px;
+      margin: 0.5rem 0 1.1rem 0;
+      padding: 0.75rem 1rem;
+      color: #0057b7;
+      font-weight: 600;
+      font-size: 1.13em;
+      text-align: center;
+      box-shadow: 0 1px 6px #bedcff36;
+    }
+    .calendar-bg-image {
+      position: relative;
+      overflow: hidden;
+      padding: 0;
+    }
+    .calendar-bg-image::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      background-image: url('https://images.unsplash.com/photo-1519677100203-a0e668c92439?auto=format&fit=crop&w=900&q=80');
+      background-size: cover;
+      background-position: center;
+      filter: blur(2px) brightness(0.65);
+      opacity: 0.8;
+      pointer-events: none;
+    }
+    #calendar {
+      position: relative;
+      z-index: 1;
+      background: transparent !important;
+    }
+    .fc {
+      background: transparent !important;
+      border-radius: 8px;
+      color: #fff;
+    }
+    .fc .fc-col-header-cell-cushion,
+    .fc .fc-daygrid-day-number,
+    .fc .fc-daygrid-event,
+    .fc .fc-daygrid-event .fc-event-title {
+      color: #fff !important;
+      font-weight: 700;
+      text-shadow: 0 2px 6px #222, 0 0 2px #000;
+    }
+    .fc .fc-daygrid-day:hover {
+      background-color: rgba(0,87,183,0.13) !important;
+    }
+    #slot-list {
+      display: flex; flex-wrap: wrap; gap: 0.5rem;
+    }
+    .slot {
+      flex: 1 0 30%;
+      padding: 0.6rem;
+      border-radius: 6px;
+      background: rgba(230, 240, 255, 0.8);
+      border: 1px solid #0057b7;
+      text-align: center;
+      cursor: pointer;
+      font-weight: 500;
+      color: #003366;
+    }
+    .slot.booked {
+      background: rgba(200, 200, 200, 0.5);
+      color: #666;
+      pointer-events: none;
+    }
+    .slot.selected {
+      background-color: #0057b7;
+      color: white;
+      font-weight: bold;
+    }
+    #booking-form { display: none; flex-direction: column; gap: 0.7rem; }
+    label { font-weight: 600; }
+    input, textarea, button {
+      padding: 0.6rem; border-radius: 6px; border: 1px solid #ccc; width: 100%;
+    }
+    button {
+      background-color: #0057b7;
+      color: white; border: none; font-size: 1rem; transition: background-color 0.2s;
+    }
+    button:hover { background-color: #004494; }
+    #greetings-section { 
+      display: none; 
+      flex-direction: column; 
+      align-items: center; 
+      gap: 1.2rem;
+      background: #eaf3ff;
+      border-radius: 10px;
+      margin-top: 1.2rem;
+      padding: 2rem 1.5rem 1.2rem 1.5rem;
+      box-shadow: 0 2px 16px #bedcff36;
+    }
+    #greetings-section h3 {
+      color: #0057b7;
+      margin-bottom: 0.2em;
+      font-size: 1.23rem;
+      text-align: center;
+    }
+    #greetings-section p {
+      color: #1a2954;
+      font-size: 1.08rem;
+      text-align: center;
+    }
+    #paynow-btn {
+      padding: 0.7em 2.3em;
+      font-size: 1.13em;
+      font-weight: 700;
+      background: linear-gradient(90deg,#0057b7,#1e7eda);
+      border-radius: 9px;
+      border: none;
+      color: #fff;
+      margin-top: 0.7em;
+      cursor: pointer;
+      transition: background 0.18s;
+    }
+    #paynow-btn:hover {
+      background: linear-gradient(90deg,#15304b,#2a5298);
+    }
+    #payment-methods { 
+      display: none; 
+      flex-direction: column; 
+      align-items: center;
+      gap: 1.2em;
+      margin: 1.4em 0;
+    }
+    .pay-method-btn {
+      background: #fff;
+      color: #0057b7;
+      border: 2px solid #0057b7;
+      font-size: 1.13em;
+      font-weight: 600;
+      border-radius: 8px;
+      padding: 0.7em 2em;
+      margin: 0.15em 0;
+      cursor: pointer;
+      transition: background 0.17s, color 0.18s;
+      width: 240px;
+      box-shadow: 0 1px 6px #e3eafc5b;
+    }
+    .pay-method-btn:hover {
+      background: #0057b7;
+      color: #fff;
+    }
+    #payment-success {
+      display:none; 
+      flex-direction:column; 
+      align-items:center; 
+      gap:1.2rem; 
+      background:#eaf3ff; 
+      border-radius:10px; 
+      margin-top:1.2rem; 
+      padding:2rem 1.5rem 1.2rem 1.5rem; 
+      box-shadow:0 2px 16px #bedcff36;
+    }
+    #payment-success h3 {
+      color:#249f37;
+      margin-bottom: 0.3em;
+      font-size: 1.22rem;
+    }
+    #payment-success p {
+      color:#1a2954; 
+      font-size:1.08rem; 
+      text-align:center;
+    }
+    @media (max-width: 768px) {
+      .slot { flex: 1 0 45%; }
+      .container { padding: 1rem; margin: 0.5rem; border-radius: 0; }
+      header { font-size: 1.3rem; padding: 1.2rem 0.5rem 1.1rem 0.5rem; min-height: 80px; }
+    }
+  </style>
+</head>
+<body>
+  <a href="index.html" class="home-btn">Home</a>
+  <header>
+    <span class="header-title">Vionyx Venue Booking</span>
+  </header>
+  <div class="container">
+    <div class="info-note">Select a date to start booking</div>
+    <div id="selected-date-time" class="selected-date-time"></div>
+    <div class="calendar-card calendar-bg-image" id="calendar-wrapper">
+      <div id="calendar"></div>
+    </div>
+    <div class="calendar-card" id="slot-list"></div>
+
+    <form class="calendar-card" id="booking-form">
+      <div id="selected-range"></div>
+      <label for="name">Full Name</label>
+      <input type="text" id="name" required />
+      <label for="email">Email Address</label>
+      <input type="email" id="email" required />
+      <label for="phone">Phone Number</label>
+      <input type="tel" id="phone" required />
+      <label for="function">Function Details</label>
+      <textarea id="function" rows="3" required></textarea>
+      <label for="attendees">Number of Persons Attending</label>
+      <input type="number" id="attendees" min="1" required />
+      <div class="total" id="totalAmount"></div>
+      <button type="submit">Submit for Approval</button>
+    </form>
+
+    <div class="calendar-card" id="greetings-section">
+      <h3>🎉 Congratulations, your booking is approved!</h3>
+      <p>
+        Thank you for booking with Vionyx. Please proceed to payment to confirm your slot.<br>
+        <span id="greetings-datetime"></span>
+      </p>
+      <button id="paynow-btn">Pay Now</button>
+    </div>
+
+    <div class="calendar-card" id="payment-methods">
+      <h3>Choose Your Payment Method</h3>
+      <button class="pay-method-btn" onclick="completePayment('Card')">💳 Pay by Card (Visa/Mastercard)</button>
+      <button class="pay-method-btn" onclick="completePayment('PayPal')">🌐 PayPal</button>
+      <button class="pay-method-btn" onclick="completePayment('Apple/Google Pay')">📱 Apple/Google Pay</button>
+      <button class="pay-method-btn" onclick="completePayment('Bank Transfer')">🏦 Bank Transfer</button>
+    </div>
+
+    <div class="calendar-card" id="payment-success">
+      <h3>✅ Payment Successful!</h3>
+      <p>
+        Thank you for your payment.<br>
+        <b>Your booking has been confirmed and added to the calendar.</b><br><br>
+        <span id="success-date-time"></span><br>
+        <span id="receipt-message"></span>
+      </p>
+    </div>
+  </div>
+  <div id="popup" style="position:fixed;top:20px;left:50%;transform:translateX(-50%);background-color:#0057b7;color:white;padding:0.75rem 1.5rem;border-radius:6px;font-size:1rem;box-shadow:0 4px 12px rgba(0,0,0,0.3);opacity:0;transition:opacity 0.3s;z-index:9999;"></div>
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const calendarEl = document.getElementById('calendar');
+      const slotList = document.getElementById('slot-list');
+      const bookingForm = document.getElementById('booking-form');
+      const selectedRangeText = document.getElementById('selected-range');
+      const totalAmountDisplay = document.getElementById('totalAmount');
+      const greetingsSection = document.getElementById('greetings-section');
+      const greetingsDatetime = document.getElementById('greetings-datetime');
+      const paynowBtn = document.getElementById('paynow-btn');
+      const paymentMethods = document.getElementById('payment-methods');
+      const paymentSuccess = document.getElementById('payment-success');
+      const receiptMessage = document.getElementById('receipt-message');
+      const popup = document.getElementById('popup');
+      const selectedDateTimeDisplay = document.getElementById('selected-date-time');
+      const successDateTime = document.getElementById('success-date-time');
+      let emailForReceipt = "";
+
+      // Booked events that are always present (simulate "permanent" bookings)
+      const bookedEvents = [
+        { title: 'Wedding', start: '2025-08-04T10:00:00' },
+        { title: 'Birthday', start: '2025-08-04T14:00:00' },
+        { title: 'Anniversary', start: '2025-08-06T09:00:00' },
+        { title: 'Corporate Meet', start: '2025-08-07T13:00:00' },
+        { title: 'Party', start: '2025-08-10T18:00:00' }
+      ];
+      // Session bookings, permanent till site reload
+      let sessionBookedEvents = [];
+
+      const calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'dayGridMonth',
+        height: 'auto',
+        selectable: true,
+        displayEventTime: false, // <-- This hides "10a"/"2p"
+        select: function (info) {
+          renderSlots(info.startStr);
+          showPopup("Please select a time slot");
+        },
+        events: [...bookedEvents]
+      });
+      calendar.render();
+
+      let startHour = null, endHour = null, currentDate = '', globalDateTimeString = '';
+      let allSlotDivs = [], finalTotal = 0, sessionBookingRange = null;
+
+      function renderSlots(date) {
+        slotList.innerHTML = '';
+        selectedRangeText.textContent = '';
+        totalAmountDisplay.textContent = '';
+        bookingForm.style.display = 'none';
+        greetingsSection.style.display = 'none';
+        paymentMethods.style.display = 'none';
+        paymentSuccess.style.display = 'none';
+        selectedDateTimeDisplay.style.display = 'none';
+        startHour = null; endHour = null; currentDate = date;
+        allSlotDivs = [];
+        globalDateTimeString = '';
+
+        // Find all booked ranges (permanent and session)
+        const allBookedRanges = [
+          ...bookedEvents.filter(e => e.start.startsWith(date)).map(e => ({
+            min: new Date(e.start).getHours(),
+            max: new Date(e.end || e.start).getHours()
+          })),
+          ...sessionBookedEvents.filter(e => e.start.startsWith(date)).map(e => ({
+            min: new Date(e.start).getHours(),
+            max: new Date(e.end || e.start).getHours()
+          }))
+        ];
+
+        const hours = Array.from({ length: 17 }, (_, i) => i + 7);
+
+        hours.forEach(hour => {
+          const slot = document.createElement('div');
+          slot.className = 'slot';
+          slot.textContent = `${hour}:00`;
+          slot.dataset.hour = hour;
+          // Is this hour inside any booked range?
+          if (allBookedRanges.some(r => hour >= r.min && hour <= r.max)) {
+            slot.classList.add('booked');
+          } else {
+            slot.onclick = () => handleSlotClick(hour);
+          }
+          allSlotDivs.push(slot);
+          slotList.appendChild(slot);
+        });
+      }
+
+      function handleSlotClick(hour) {
+        if (startHour==null) {
+          startHour=hour;
+          highlightSlots(startHour,startHour);
+          selectedRangeText.textContent=`Start: ${formatHour(startHour)}`;
+          globalDateTimeString = currentDate ? `<b>Date:</b> ${currentDate}` : '';
+          showPopup("Now select end time");
+          showSelectedDateTime();
+        } else if (endHour==null) {
+          endHour=hour;
+          const min=Math.min(startHour,endHour), max=Math.max(startHour,endHour);
+          // Block overlapping with any existing booking (including session)
+          if (
+            [
+              ...bookedEvents,
+              ...sessionBookedEvents
+            ].filter(e=>e.start.startsWith(currentDate)).some(e=>{
+              const startH=new Date(e.start).getHours();
+              const endH=new Date(e.end || e.start).getHours();
+              return Math.max(startH,min) <= Math.min(endH,max);
+            })
+          ) {
+            showPopup("Some slots in this range are booked"); resetSlotSelection(); return;
+          }
+          highlightSlots(min,max);
+          const dur=max-min+1; finalTotal=dur*15;
+          selectedRangeText.textContent=`Selected: ${formatHour(min)} to ${formatHour(max)} (${dur} hr${dur>1?'s':''})`;
+          totalAmountDisplay.textContent=`Total Amount: £${finalTotal}`;
+          globalDateTimeString = currentDate
+            ? `<b>Date:</b> ${currentDate}, <b>Time:</b> ${formatHour(min)} to ${formatHour(max)}`
+            : '';
+          showSelectedDateTime();
+          sessionBookingRange = { date: currentDate, min, max };
+          bookingForm.style.display='flex';
+        } else resetSlotSelection();
+      }
+
+      function showSelectedDateTime() {
+        selectedDateTimeDisplay.innerHTML = globalDateTimeString;
+        selectedDateTimeDisplay.style.display = globalDateTimeString ? 'block' : 'none';
+      }
+
+      function highlightSlots(min,max){
+        allSlotDivs.forEach(el=>{const h=parseInt(el.dataset.hour);
+          el.classList.toggle('selected', h>=min && h<=max && !el.classList.contains('booked'));});
+      }
+      function resetSlotSelection(){ startHour=endHour=null; finalTotal=0; selectedRangeText.textContent=''; totalAmountDisplay.textContent=''; bookingForm.style.display='none'; greetingsSection.style.display='none'; paymentMethods.style.display='none'; paymentSuccess.style.display='none'; allSlotDivs.forEach(el=>el.classList.remove('selected')); selectedDateTimeDisplay.style.display = 'none'; globalDateTimeString = ''; sessionBookingRange = null; }
+
+      function formatHour(h){const suf=h>=12?'PM':'AM', hr=h>12?h-12:h; return `${hr}:00 ${suf}`; }
+
+      bookingForm.onsubmit = e => {
+        e.preventDefault();
+        bookingForm.style.display='none';
+        greetingsSection.style.display='flex';
+        greetingsDatetime.innerHTML = globalDateTimeString;
+        // Add a single session event for the whole range
+        if (sessionBookingRange) {
+          const { date, min, max } = sessionBookingRange;
+          const dtStart = new Date(date); dtStart.setHours(min, 0, 0, 0);
+          const dtEnd = new Date(date); dtEnd.setHours(max, 0, 0, 0);
+          // Grab function detail (strip newlines)
+          const functionDetail = (document.getElementById('function').value || '').replace(/\s+/g,' ').trim();
+          const event = {
+            title: `${functionDetail} (${formatHour(min)}–${formatHour(max)})`,
+            start: dtStart.toISOString().slice(0,16),
+            end: dtEnd.toISOString().slice(0,16)
+          };
+          sessionBookedEvents.push(event);
+          calendar.addEvent(event);
+        }
+      };
+
+      paynowBtn.onclick = function() {
+        greetingsSection.style.display='none';
+        paymentMethods.style.display='flex';
+      };
+
+      window.completePayment = function(method) {
+        paymentMethods.style.display = "none";
+        paymentSuccess.style.display = "flex";
+        emailForReceipt = document.getElementById('email').value || 'your email address';
+        successDateTime.innerHTML = `<b>Booking Date & Time:</b> ${globalDateTimeString}`;
+        receiptMessage.innerHTML = `
+          <b>A detailed booking receipt has been sent to:</b><br>
+          <span style="color:#0057b7;">${emailForReceipt}</span><br><br>
+          Please check your inbox (and spam folder).<br>
+          If you do not receive the receipt within a few minutes, please contact our team.
+        `;
+        showPopup(method + " payment successful!");
+        setTimeout(() => {
+          paymentSuccess.style.display = "none";
+          window.location.reload();
+        }, 5000);
+      };
+
+      function showPopup(msg){
+        popup.textContent=msg; popup.style.opacity=1;
+        setTimeout(()=>popup.style.opacity=0,2500);
+      }
+    });
+  </script>
+</body>
+</html>
