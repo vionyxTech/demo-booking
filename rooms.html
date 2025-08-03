@@ -25,37 +25,35 @@
       -webkit-backdrop-filter: blur(6px) saturate(150%);
       box-shadow: 0 2px 10px rgba(0,0,0,0.17);
     }
+    /* Desktop (default) */
     .logo-nav {
       max-width: 1200px; margin: 0 auto;
       display: flex; align-items: center; justify-content: space-between;
       padding: 0.5rem 2rem;
       position: relative;
     }
-    .logo-nav img {
+    .logo-nav img.desktop-logo {
       height: 56px;
       border-radius: 10px;
       box-shadow: 0 2px 10px rgba(0,0,0,0.10);
       background: #fff;
       padding: 2px;
-      display: block;
-      margin: 0;
-      transition: all 0.3s;
     }
-    nav ul { list-style: none; display: flex; gap: 2rem; align-items: center;}
-    nav a {
+    nav.desktop-nav ul { list-style: none; display: flex; gap: 2rem; align-items: center;}
+    nav.desktop-nav a {
       color: #fff; text-decoration: none; font-weight: 600;
       padding: 0.5rem 0; position: relative;
       letter-spacing: 0.02em;
       transition: color 0.18s;
       display: inline-block;
     }
-    nav a:hover { color: #ffe165; }
-    nav a::after {
+    nav.desktop-nav a:hover { color: #ffe165; }
+    nav.desktop-nav a::after {
       content: '';
       position: absolute; left: 0; bottom: -4px; width: 0;
       height: 2px; background: #ffdd57; transition: width 0.3s;
     }
-    nav a:hover::after { width: 100%; }
+    nav.desktop-nav a:hover::after { width: 100%; }
     .home-btn {
       background: linear-gradient(90deg, #1e3c72, #2a5298);
       color: #fff;
@@ -74,19 +72,20 @@
       background: linear-gradient(90deg,#15304b,#2a5298);
       color: #ffe165;
     }
+    /* Hide mobile nav stack by default */
+    .mobile-nav-stack { display: none; }
 
-    /* MOBILE ONLY */
+    /* MOBILE NAV ONLY */
     @media (max-width: 700px) {
       .logo-nav {
         flex-direction: column;
         align-items: stretch;
-        padding: 0.9em 0.5em 0.6em 0.5em;
-        gap: 0;
+        padding: 0.7em 0.5em 0.6em 0.5em;
         position: relative;
       }
-      /* Hide default nav menu and logo for mobile */
-      .logo-nav > img, .logo-nav > nav { display: none !important; }
-      /* Mobile custom nav */
+      /* Hide desktop nav + logo on mobile */
+      .desktop-logo, nav.desktop-nav { display: none !important; }
+      /* Show mobile nav stack */
       .mobile-nav-stack {
         display: flex !important;
         flex-direction: column;
@@ -95,12 +94,12 @@
         position: relative;
       }
       .mobile-nav-stack .home-btn {
-        width: 50vw;
+        width: 48vw;
         min-width: 120px;
         max-width: 210px;
         margin: 0.2em auto 0.25em 0;
         display: block;
-        font-size: 1.09em;
+        font-size: 1.08em;
         letter-spacing: 0.06em;
         text-align: left;
         border-radius: 10px;
@@ -153,13 +152,18 @@
         background: #2a5298; color: #ffe165;
       }
     }
-    /* Desktop: hide mobile nav */
+    @media (max-width: 500px) {
+      .mobile-logo { height: 34px !important; }
+      h1 { font-size: 1.18rem; }
+      .home-btn { font-size: 0.97em; min-width: 88px;}
+    }
     @media (min-width: 701px) {
       .mobile-nav-stack { display: none !important; }
-      .logo-nav > img, .logo-nav > nav { display: block !important; }
+      .desktop-logo { display: block !important; }
+      nav.desktop-nav { display: block !important; }
     }
+    /* End MOBILE NAV LAYOUT */
 
-    /* Rest unchanged */
     .rooms-page-main {
       max-width: 1180px;
       margin: 110px auto 0 auto;
@@ -225,11 +229,6 @@
     @media (max-width: 800px) {
       .gallery-grid img { height: 130px;}
       .rooms-page-main { margin-top: 72px; padding: 1rem 2vw; }
-    }
-    @media (max-width: 500px) {
-      .mobile-logo { height: 34px !important; }
-      h1 { font-size: 1.18rem; }
-      .home-btn { font-size: 0.97em; min-width: 88px;}
     }
     /* Lightbox popup */
     #lightbox-overlay {
@@ -319,9 +318,9 @@
 <body>
   <header>
     <div class="logo-nav">
-      <!-- Desktop nav & logo (default) -->
-      <img src="assets/images/logo.png" alt="VIONYX Logo" />
-      <nav>
+      <!-- Desktop -->
+      <img src="assets/images/logo.png" alt="VIONYX Logo" class="desktop-logo" />
+      <nav class="desktop-nav">
         <ul>
           <li><a class="home-btn" href="index.html">Home</a></li>
           <li><a href="rooms.html" style="color:#ffe165;">Function Rooms</a></li>
@@ -331,8 +330,8 @@
           <li><a href="booking.html">Check Availability</a></li>
         </ul>
       </nav>
-      <!-- Mobile nav stack -->
-      <div class="mobile-nav-stack" style="display:none;">
+      <!-- Mobile -->
+      <div class="mobile-nav-stack">
         <a class="home-btn" href="index.html">Home</a>
         <img src="assets/images/logo.png" alt="VIONYX Logo" class="mobile-logo" />
         <ul class="mobile-nav-links">
