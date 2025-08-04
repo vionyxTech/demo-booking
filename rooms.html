@@ -15,6 +15,7 @@
         url('https://www.transparenttextures.com/patterns/cubes.png');
       background-blend-mode: overlay;
       background-attachment: fixed;
+      overflow-x: hidden;
     }
     header {
       width: 100%;
@@ -25,35 +26,34 @@
       -webkit-backdrop-filter: blur(6px) saturate(150%);
       box-shadow: 0 2px 10px rgba(0,0,0,0.17);
     }
-    /* Desktop (default) */
     .logo-nav {
       max-width: 1200px; margin: 0 auto;
       display: flex; align-items: center; justify-content: space-between;
       padding: 0.5rem 2rem;
-      position: relative;
     }
-    .logo-nav img.desktop-logo {
+    .logo-nav img {
       height: 56px;
       border-radius: 10px;
       box-shadow: 0 2px 10px rgba(0,0,0,0.10);
       background: #fff;
       padding: 2px;
     }
-    nav.desktop-nav ul { list-style: none; display: flex; gap: 2rem; align-items: center;}
-    nav.desktop-nav a {
+    nav ul {
+      list-style: none; display: flex; gap: 2rem;
+    }
+    nav a {
       color: #fff; text-decoration: none; font-weight: 600;
       padding: 0.5rem 0; position: relative;
       letter-spacing: 0.02em;
       transition: color 0.18s;
-      display: inline-block;
     }
-    nav.desktop-nav a:hover { color: #ffe165; }
-    nav.desktop-nav a::after {
+    nav a:hover { color: #ffe165; }
+    nav a::after {
       content: '';
       position: absolute; left: 0; bottom: -4px; width: 0;
       height: 2px; background: #ffdd57; transition: width 0.3s;
     }
-    nav.desktop-nav a:hover::after { width: 100%; }
+    nav a:hover::after { width: 100%; }
     .home-btn {
       background: linear-gradient(90deg, #1e3c72, #2a5298);
       color: #fff;
@@ -72,102 +72,10 @@
       background: linear-gradient(90deg,#15304b,#2a5298);
       color: #ffe165;
     }
-    /* Hide mobile nav stack by default */
-    .mobile-nav-stack { display: none; }
-
-    /* MOBILE NAV ONLY */
-    @media (max-width: 700px) {
-      .logo-nav {
-        flex-direction: column;
-        align-items: stretch;
-        padding: 0.7em 0.5em 0.6em 0.5em;
-        position: relative;
-      }
-      /* Hide desktop nav + logo on mobile */
-      .desktop-logo, nav.desktop-nav { display: none !important; }
-      /* Show mobile nav stack */
-      .mobile-nav-stack {
-        display: flex !important;
-        flex-direction: column;
-        align-items: stretch;
-        width: 100%;
-        position: relative;
-      }
-      .mobile-nav-stack .home-btn {
-        width: 48vw;
-        min-width: 120px;
-        max-width: 210px;
-        margin: 0.2em auto 0.25em 0;
-        display: block;
-        font-size: 1.08em;
-        letter-spacing: 0.06em;
-        text-align: left;
-        border-radius: 10px;
-        position: absolute;
-        left: 1.2em;
-        top: 0px;
-        z-index: 3;
-      }
-      .mobile-nav-stack .mobile-logo {
-        margin: 0 auto 5px auto;
-        display: block;
-        height: 44px;
-        order: 2;
-        position: static;
-        border-radius: 10px;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.10);
-        background: #fff;
-        padding: 2px;
-      }
-      .mobile-nav-links {
-        margin-top: 50px;
-        width: 97%;
-        margin-left: auto;
-        margin-right: auto;
-        display: flex;
-        flex-direction: column;
-        align-items: stretch;
-      }
-      .mobile-nav-links li {
-        width: 100%;
-        text-align: center;
-        margin: 0.19em 0;
-      }
-      .mobile-nav-links a {
-        width: 100%;
-        margin: 0 auto;
-        display: block;
-        background: rgba(36,44,88,0.18);
-        border-radius: 6px;
-        font-size: 1.04em;
-        padding: 0.85em 0;
-        text-align: center;
-      }
-      .mobile-nav-links a[style*="color:#ffe165"] {
-        color: #ffe165 !important;
-        font-weight: 700;
-        background: rgba(255,225,101,0.07);
-      }
-      .mobile-nav-links a:hover {
-        background: #2a5298; color: #ffe165;
-      }
-    }
-    @media (max-width: 500px) {
-      .mobile-logo { height: 34px !important; }
-      h1 { font-size: 1.18rem; }
-      .home-btn { font-size: 0.97em; min-width: 88px;}
-    }
-    @media (min-width: 701px) {
-      .mobile-nav-stack { display: none !important; }
-      .desktop-logo { display: block !important; }
-      nav.desktop-nav { display: block !important; }
-    }
-    /* End MOBILE NAV LAYOUT */
-
     .rooms-page-main {
       max-width: 1180px;
-      margin: 110px auto 0 auto;
-      padding: 2.5rem 1rem;
+      margin: 120px auto 0 auto;
+      padding: 2rem 1rem;
     }
     h1 {
       color: #fff;
@@ -176,6 +84,7 @@
       text-align: center;
       font-weight: 900;
       letter-spacing: 0.04em;
+      margin-top: 1rem;
       margin-bottom: 24px;
     }
     .gallery-grid {
@@ -202,7 +111,7 @@
       transform: translateY(-4px) scale(1.023);
     }
     .gallery-grid img {
-      width: 100%; height: 200px; object-fit: cover; transition: transform 0.3s;
+      width: 100%; height: 200px; object-fit: cover;
       border-bottom: 1.5px solid #e0e6f8;
       background: #eee;
       display: block;
@@ -214,8 +123,6 @@
       font-weight: 700;
       color: #19245c;
       font-size: 1.14rem;
-      background: transparent;
-      letter-spacing: 0.02em;
     }
     .room-desc {
       color: #36416b;
@@ -223,106 +130,45 @@
       font-weight: 400;
       padding: 0 1.1rem 1.2rem 1.1rem;
       text-align: center;
-      background: transparent;
-      letter-spacing: 0.01em;
     }
     @media (max-width: 800px) {
-      .gallery-grid img { height: 130px;}
-      .rooms-page-main { margin-top: 72px; padding: 1rem 2vw; }
-    }
-    /* Lightbox popup */
-    #lightbox-overlay {
-      display: none;
-      position: fixed;
-      z-index: 99999;
-      left: 0; top: 0; width: 100vw; height: 100vh;
-      background: rgba(25,32,64,0.91);
-      justify-content: center;
-      align-items: center;
-    }
-    #lightbox-overlay.show { display: flex; }
-    #lightbox-overlay img {
-      max-width: 92vw;
-      max-height: 88vh;
-      border-radius: 12px;
-      box-shadow: 0 8px 48px #111b;
-      background: #fff;
-      display: block;
-      margin: 0 auto;
-    }
-    #lightbox-overlay span {
-      position: absolute;
-      top: 38px;
-      right: 48px;
-      color: #fff;
-      font-size: 2.3rem;
-      font-weight: 900;
-      cursor: pointer;
-      z-index: 999999;
-      text-shadow: 0 2px 10px #21235e;
-      background: rgba(25,32,64,0.23);
-      border-radius: 100px;
-      padding: 0 18px;
-      transition: background 0.18s;
-    }
-    #lightbox-overlay span:hover { background: rgba(32,32,96,0.38);}
-    @media (max-width: 800px) {
-      #lightbox-overlay span { top: 16px; right: 22px; font-size: 2rem; }
-    }
-    /* Floating WhatsApp and Facebook */
-    .floating-whatsapp,
-    .floating-facebook {
-      position: fixed;
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.16);
-      z-index: 9999;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: #fff;
-      transition: box-shadow 0.18s, transform 0.15s;
-    }
-    .floating-whatsapp {
-      right: 18px;
-      bottom: 22px;
-    }
-    .floating-facebook {
-      right: 18px;
-      bottom: 78px;
-    }
-    .floating-whatsapp img,
-    .floating-facebook img {
-      width: 28px;
-      height: 28px;
-      display: block;
-    }
-    .floating-whatsapp:hover,
-    .floating-facebook:hover {
-      box-shadow: 0 4px 18px #25d36666, 0 2px 10px rgba(0,0,0,0.16);
-      transform: translateY(-4px) scale(1.07);
-    }
-    .floating-facebook:hover {
-      box-shadow: 0 4px 18px #1877f266, 0 2px 10px rgba(0,0,0,0.16);
-    }
-    @media (max-width: 600px) {
-      .floating-whatsapp, .floating-facebook {
-        width: 38px; height: 38px;
-        right: 8px;
+      body { overflow-x: hidden; }
+      .logo-nav {
+        flex-direction: column;
+        align-items: center;
+        padding: 1rem 1rem 0.5rem;
       }
-      .floating-facebook { bottom: 56px; }
+      nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1rem;
+      }
+      .rooms-page-main {
+        margin-top: 130px;
+        padding: 1rem 2vw;
+      }
+      h1 {
+        margin-top: 2.4rem;
+        font-size: 1.6rem;
+      }
+    }
+    @media (max-width: 500px) {
+      .logo-nav img { height: 38px; }
+      h1 { font-size: 1.3rem; }
+      nav ul { gap: 1rem; font-size: 1em; }
+      .home-btn { font-size: 0.98em; margin-right: 8px; }
+      .gallery-grid { gap: 1rem; }
+      .room-desc { font-size: 0.97rem; }
     }
   </style>
 </head>
 <body>
   <header>
     <div class="logo-nav">
-      <!-- Desktop -->
-      <img src="assets/images/logo.png" alt="VIONYX Logo" class="desktop-logo" />
-      <nav class="desktop-nav">
+      <a href="index.html" class="home-btn">Home</a>
+      <img src="assets/images/logo.png" alt="VIONYX Logo" />
+      <nav>
         <ul>
-          <li><a class="home-btn" href="index.html">Home</a></li>
           <li><a href="rooms.html" style="color:#ffe165;">Function Rooms</a></li>
           <li><a href="events.html">Events</a></li>
           <li><a href="gallery.html">Gallery</a></li>
@@ -330,69 +176,27 @@
           <li><a href="booking.html">Check Availability</a></li>
         </ul>
       </nav>
-      <!-- Mobile -->
-      <div class="mobile-nav-stack">
-        <a class="home-btn" href="index.html">Home</a>
-        <img src="assets/images/logo.png" alt="VIONYX Logo" class="mobile-logo" />
-        <ul class="mobile-nav-links">
-          <li><a href="rooms.html" style="color:#ffe165;">Function Rooms</a></li>
-          <li><a href="events.html">Events</a></li>
-          <li><a href="gallery.html">Gallery</a></li>
-          <li><a href="contact.html">Contact Us</a></li>
-          <li><a href="booking.html">Check Availability</a></li>
-        </ul>
-      </div>
     </div>
   </header>
   <main class="rooms-page-main">
     <h1>Our Function Rooms</h1>
     <div class="gallery-grid">
       <figure>
-        <img src="images/banquet-hall.jpg" alt="Banquet Hall" onclick="openLightbox(this)">
+        <img src="images/banquet-hall.jpg" alt="Banquet Hall">
         <figcaption>Banquet Hall</figcaption>
-        <div class="room-desc">A grand space for celebrations, award nights, large gatherings, and dining. Perfect for weddings, parties, or formal dinners, our Banquet Hall features beautiful decor and flexible seating.</div>
+        <div class="room-desc">A grand space for celebrations, award nights, large gatherings, and dining.</div>
       </figure>
       <figure>
-        <img src="images/conference-room.jpg" alt="Conference Room" onclick="openLightbox(this)">
+        <img src="images/conference-room.jpg" alt="Conference Room">
         <figcaption>Conference Room</figcaption>
-        <div class="room-desc">Ideal for meetings, presentations, and business workshops. Equipped with modern AV technology and comfortable seating, our Conference Room supports productive sessions for teams of all sizes.</div>
+        <div class="room-desc">Ideal for meetings, presentations, and business workshops.</div>
       </figure>
       <figure>
-        <img src="images/wedding-hall.jpg" alt="Wedding Hall" onclick="openLightbox(this)">
+        <img src="images/wedding-hall.jpg" alt="Wedding Hall">
         <figcaption>Wedding Hall</figcaption>
-        <div class="room-desc">Experience romance and elegance in our dedicated Wedding Hall, designed for ceremonies and receptions. Let your special day unfold in a stylish and enchanting setting.</div>
+        <div class="room-desc">Romantic and elegant — perfect for ceremonies and receptions.</div>
       </figure>
     </div>
   </main>
-
-  <!-- Lightbox for Room Images -->
-  <div id="lightbox-overlay">
-    <span id="lightbox-close" title="Close">&times;</span>
-    <img src="" alt="Large Room" id="lightbox-img"/>
-  </div>
-  <script>
-    function openLightbox(img) {
-      document.getElementById('lightbox-img').src = img.src;
-      document.getElementById('lightbox-overlay').classList.add('show');
-    }
-    document.getElementById('lightbox-close').onclick = function() {
-      document.getElementById('lightbox-overlay').classList.remove('show');
-      document.getElementById('lightbox-img').src = '';
-    };
-    document.getElementById('lightbox-overlay').onclick = function(e) {
-      if (e.target === this) {
-        this.classList.remove('show');
-        document.getElementById('lightbox-img').src = '';
-      }
-    };
-  </script>
-
-  <!-- Floating WhatsApp & Facebook Icons -->
-  <a href="https://wa.me/447123456789" class="floating-whatsapp" target="_blank" aria-label="Chat on WhatsApp">
-    <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/whatsapp.svg" alt="WhatsApp" />
-  </a>
-  <a href="https://www.facebook.com/messages/t/yourfacebookpageid" class="floating-facebook" target="_blank" aria-label="Facebook Messenger">
-    <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/facebook.svg" alt="Facebook" />
-  </a>
 </body>
 </html>
