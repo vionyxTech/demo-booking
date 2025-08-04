@@ -72,8 +72,8 @@
     }
     .gallery-page-main {
       max-width: 1180px;
-      margin: 110px auto 0 auto;
-      padding: 2.5rem 1rem;
+      margin: 0 auto;
+      padding: 140px 1rem 2.5rem 1rem; /* Adjusted padding to prevent overlap */
     }
     h1 {
       color: #fff;
@@ -152,12 +152,8 @@
     }
     #lightbox-overlay span:hover { background: rgba(32,32,96,0.38);}
     @media (max-width: 800px) {
-      body {
-        overflow-x: hidden;
-      }
-      header {
-        position: fixed;
-      }
+      body { overflow-x: hidden; }
+      header { position: fixed; }
       .logo-nav {
         flex-wrap: wrap;
         justify-content: center;
@@ -170,7 +166,7 @@
       }
       #lightbox-overlay span { top: 16px; right: 22px; font-size: 2rem; }
       .gallery-all img { max-width: 94vw; height: auto; }
-      .gallery-page-main { margin-top: 90px; padding: 1.2rem 5vw; }
+      .gallery-page-main { padding-top: 120px; }
     }
     @media (max-width: 500px) {
       .logo-nav img { height: 38px; }
