@@ -10,6 +10,7 @@
       font-family: 'Segoe UI', sans-serif;
       color: #333;
       min-height: 100vh;
+      overflow-x: hidden;
       background:
         linear-gradient(135deg, #21235e 0%, #537895 100%),
         url('https://www.transparenttextures.com/patterns/cubes.png');
@@ -25,35 +26,32 @@
       -webkit-backdrop-filter: blur(6px) saturate(150%);
       box-shadow: 0 2px 10px rgba(0,0,0,0.17);
     }
-    /* Desktop (default) */
     .logo-nav {
       max-width: 1200px; margin: 0 auto;
       display: flex; align-items: center; justify-content: space-between;
       padding: 0.5rem 2rem;
-      position: relative;
     }
-    .logo-nav img.desktop-logo {
+    .logo-nav img {
       height: 56px;
       border-radius: 10px;
       box-shadow: 0 2px 10px rgba(0,0,0,0.10);
       background: #fff;
       padding: 2px;
     }
-    nav.desktop-nav ul { list-style: none; display: flex; gap: 2rem; align-items: center;}
-    nav.desktop-nav a {
+    nav ul { list-style: none; display: flex; gap: 2rem; }
+    nav a {
       color: #fff; text-decoration: none; font-weight: 600;
       padding: 0.5rem 0; position: relative;
       letter-spacing: 0.02em;
       transition: color 0.18s;
-      display: inline-block;
     }
-    nav.desktop-nav a:hover { color: #ffe165; }
-    nav.desktop-nav a::after {
+    nav a:hover { color: #ffe165; }
+    nav a::after {
       content: '';
       position: absolute; left: 0; bottom: -4px; width: 0;
       height: 2px; background: #ffdd57; transition: width 0.3s;
     }
-    nav.desktop-nav a:hover::after { width: 100%; }
+    nav a:hover::after { width: 100%; }
     .home-btn {
       background: linear-gradient(90deg, #1e3c72, #2a5298);
       color: #fff;
@@ -72,102 +70,10 @@
       background: linear-gradient(90deg,#15304b,#2a5298);
       color: #ffe165;
     }
-    /* Hide mobile nav stack by default */
-    .mobile-nav-stack { display: none; }
-
-    /* MOBILE NAV ONLY */
-    @media (max-width: 700px) {
-      .logo-nav {
-        flex-direction: column;
-        align-items: stretch;
-        padding: 0.7em 0.5em 0.6em 0.5em;
-        position: relative;
-      }
-      /* Hide desktop nav + logo on mobile */
-      .desktop-logo, nav.desktop-nav { display: none !important; }
-      /* Show mobile nav stack */
-      .mobile-nav-stack {
-        display: flex !important;
-        flex-direction: column;
-        align-items: stretch;
-        width: 100%;
-        position: relative;
-      }
-      .mobile-nav-stack .home-btn {
-        width: 48vw;
-        min-width: 120px;
-        max-width: 210px;
-        margin: 0.2em auto 0.25em 0;
-        display: block;
-        font-size: 1.08em;
-        letter-spacing: 0.06em;
-        text-align: left;
-        border-radius: 10px;
-        position: absolute;
-        left: 1.2em;
-        top: 0px;
-        z-index: 3;
-      }
-      .mobile-nav-stack .mobile-logo {
-        margin: 0 auto 5px auto;
-        display: block;
-        height: 44px;
-        order: 2;
-        position: static;
-        border-radius: 10px;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.10);
-        background: #fff;
-        padding: 2px;
-      }
-      .mobile-nav-links {
-        margin-top: 50px;
-        width: 97%;
-        margin-left: auto;
-        margin-right: auto;
-        display: flex;
-        flex-direction: column;
-        align-items: stretch;
-      }
-      .mobile-nav-links li {
-        width: 100%;
-        text-align: center;
-        margin: 0.19em 0;
-      }
-      .mobile-nav-links a {
-        width: 100%;
-        margin: 0 auto;
-        display: block;
-        background: rgba(36,44,88,0.18);
-        border-radius: 6px;
-        font-size: 1.04em;
-        padding: 0.85em 0;
-        text-align: center;
-      }
-      .mobile-nav-links a[style*="color:#ffe165"] {
-        color: #ffe165 !important;
-        font-weight: 700;
-        background: rgba(255,225,101,0.07);
-      }
-      .mobile-nav-links a:hover {
-        background: #2a5298; color: #ffe165;
-      }
-    }
-    @media (max-width: 500px) {
-      .mobile-logo { height: 34px !important; }
-      h1 { font-size: 1.18rem; }
-      .home-btn { font-size: 0.97em; min-width: 88px;}
-    }
-    @media (min-width: 701px) {
-      .mobile-nav-stack { display: none !important; }
-      .desktop-logo { display: block !important; }
-      nav.desktop-nav { display: block !important; }
-    }
-    /* End MOBILE NAV LAYOUT */
-
     .events-page-main {
       max-width: 1180px;
-      margin: 110px auto 0 auto;
-      padding: 2.5rem 1rem;
+      margin: 0 auto;
+      padding: 160px 1rem 2.5rem 1rem;
     }
     h1 {
       color: #fff;
@@ -176,6 +82,7 @@
       text-align: center;
       font-weight: 900;
       letter-spacing: 0.04em;
+      margin-top: 12px;
       margin-bottom: 24px;
     }
     .gallery-grid {
@@ -227,10 +134,18 @@
       letter-spacing: 0.01em;
     }
     @media (max-width: 800px) {
-      .gallery-grid img { height: 130px;}
-      .events-page-main { margin-top: 72px; padding: 1rem 2vw; }
+      .gallery-grid img { height: 130px; }
+      .events-page-main { padding-top: 180px; }
+      h1 { margin-top: 20px; font-size: 1.8rem; }
     }
-    /* Lightbox popup */
+    @media (max-width: 500px) {
+      .logo-nav img { height: 38px; }
+      h1 { font-size: 1.18rem; }
+      nav ul { gap: 1rem; font-size: 1em; }
+      .home-btn { font-size: 0.98em; margin-right: 8px; }
+      .gallery-grid { gap: 0.8rem; }
+      .event-desc { font-size: 0.97rem; }
+    }
     #lightbox-overlay {
       display: none;
       position: fixed;
@@ -269,7 +184,6 @@
     @media (max-width: 800px) {
       #lightbox-overlay span { top: 16px; right: 22px; font-size: 2rem; }
     }
-    /* Floating WhatsApp and Facebook (copy from index) */
     .floating-whatsapp,
     .floating-facebook {
       position: fixed;
@@ -318,9 +232,8 @@
 <body>
   <header>
     <div class="logo-nav">
-      <!-- Desktop nav & logo (default) -->
-      <img src="assets/images/logo.png" alt="VIONYX Logo" class="desktop-logo" />
-      <nav class="desktop-nav">
+      <img src="assets/images/logo.png" alt="VIONYX Logo" />
+      <nav>
         <ul>
           <li><a class="home-btn" href="index.html">Home</a></li>
           <li><a href="rooms.html">Function Rooms</a></li>
@@ -330,18 +243,6 @@
           <li><a href="booking.html">Check Availability</a></li>
         </ul>
       </nav>
-      <!-- Mobile nav stack -->
-      <div class="mobile-nav-stack">
-        <a class="home-btn" href="index.html">Home</a>
-        <img src="assets/images/logo.png" alt="VIONYX Logo" class="mobile-logo" />
-        <ul class="mobile-nav-links">
-          <li><a href="rooms.html">Function Rooms</a></li>
-          <li><a href="events.html" style="color:#ffe165;">Events</a></li>
-          <li><a href="gallery.html">Gallery</a></li>
-          <li><a href="contact.html">Contact Us</a></li>
-          <li><a href="booking.html">Check Availability</a></li>
-        </ul>
-      </div>
     </div>
   </header>
   <main class="events-page-main">
@@ -365,7 +266,6 @@
     </div>
   </main>
 
-  <!-- Lightbox for Event Images -->
   <div id="lightbox-overlay">
     <span id="lightbox-close" title="Close">&times;</span>
     <img src="" alt="Large Event" id="lightbox-img"/>
@@ -387,11 +287,10 @@
     };
   </script>
 
-  <!-- Floating WhatsApp & Facebook Icons -->
-  <a href="https://wa.me/447123456789" class="floating-whatsapp" target="_blank" aria-label="Chat on WhatsApp">
+  <a href="https://wa.me/447123456789" class="floating-whatsapp" target="_blank">
     <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/whatsapp.svg" alt="WhatsApp" />
   </a>
-  <a href="https://www.facebook.com/messages/t/yourfacebookpageid" class="floating-facebook" target="_blank" aria-label="Facebook Messenger">
+  <a href="https://www.facebook.com/messages/t/yourfacebookpageid" class="floating-facebook" target="_blank">
     <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/facebook.svg" alt="Facebook" />
   </a>
 </body>
