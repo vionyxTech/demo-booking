@@ -1,209 +1,210 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Contact – VIONYX Event Venue</title>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Contact Us | VIONYX</title>
   <style>
+    /* RESET */
+    * { box-sizing: border-box; margin: 0; padding: 0 }
+
+    /* BODY BACKGROUND IMAGE */
     body {
       font-family: 'Segoe UI', sans-serif;
-      margin: 0;
-      background-image: url('https://images.unsplash.com/photo-1565182999561-4b8ec785b24e?auto=format&fit=crop&w=1500&q=80');
-      background-size: cover;
-      background-position: center;
-      background-attachment: fixed;
-      background-repeat: no-repeat;
-      background-blend-mode: overlay;
-      color: #1a2954;
+      color: #333;
       min-height: 100vh;
+      padding-top: 80px; /* header offset */
+      background:
+        linear-gradient(rgba(33,35,94,0.6), rgba(83,120,149,0.6)),
+        url('https://images.unsplash.com/photo-1556761175-4b46a572b786?auto=format&fit=crop&w=1400&q=80')
+        center/cover no-repeat;
     }
+
+    /* HEADER */
     header {
-      background-image: url('https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=1200&q=80');
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      min-height: 110px;
-      color: white;
-      padding: 1.1rem 1.2rem 1.5rem 100px;
-      text-align: center;
-      font-size: 2rem;
-      font-weight: bold;
-      box-shadow: 0 8px 32px 0 rgba(0,0,0,0.16);
-      position: relative;
-      border: none;
-      display: block;
+      position: fixed; top: 0; left: 0; width: 100%; height: 80px;
+      background: rgba(24,32,48,0.38);
+      backdrop-filter: blur(6px) saturate(150%);
+      -webkit-backdrop-filter: blur(6px) saturate(150%);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.17);
+      z-index: 999;
     }
-    header::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: rgba(0, 51, 102, 0.32);
-      z-index: 0;
+    .logo-nav {
+      max-width: 1200px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0.5rem 2rem;
     }
-    .logo-img {
-      position: absolute;
-      top: 22px;
-      left: 20px;
-      width: 62px;
-      height: 62px;
-      object-fit: contain;
-      border-radius: 50%;
-      background: #fff;
-      z-index: 2;
-      box-shadow: 0 0 12px #0003;
+    .logo-nav img {
+      height: 56px; border-radius: 10px;
+      background: #fff; padding: 2px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.10);
     }
-    .home-btn {
-      position: absolute;
-      top: 8px;
-      left: 98px;
-      z-index: 2;
-      background: linear-gradient(90deg, #1e3c72, #2a5298);
-      color: #fff;
-      font-weight: 600;
-      padding: 0.14em 0.8em;
-      border-radius: 7px;
-      border: none;
-      text-decoration: none;
-      font-size: 0.85em;
-      box-shadow: 0 1px 8px #21346e22;
-      opacity: 0.95;
-      transition: background 0.19s, color 0.17s;
-      min-width: 38px;
-      text-align: center;
+
+    /* NAVIGATION */
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 2rem;
     }
-    .home-btn:hover {
-      background: linear-gradient(90deg,#15304b,#2a5298);
-      color: #ffe165;
-      opacity: 1;
+    nav a {
+      color: #fff; text-decoration: none; font-weight: 600;
+      padding: 0.5rem 0; position: relative;
+      letter-spacing: 0.02em; transition: color 0.18s;
     }
-    .header-title {
-      position: relative;
-      z-index: 1;
-      text-shadow: 0 3px 16px rgba(0,0,0,0.30);
-      font-family: 'Segoe UI', SegoeUI-Bold, sans-serif;
-      letter-spacing: 1.5px;
-      display: block;
-      margin-top: 0.3rem;
+    nav a:hover { color: #ffe165 }
+    nav a::after {
+      content: ''; position: absolute; left:0; bottom:-4px;
+      width:0; height:2px; background:#ffdd57;
+      transition: width 0.3s;
     }
-    .header-subtitle {
-      color: #ffe165;
-      font-size: 1.55rem;
-      font-weight: 800;
-      letter-spacing: 0.4px;
-      margin-bottom: 0.22rem;
-      z-index: 1;
-      position: relative;
-      display: block;
+    nav a:hover::after { width:100% }
+
+    /* Hide nothing on desktop */
+
+    /* MOBILE (≤900px): only first+last, spaced */
+    @media (max-width: 900px) {
+      .logo-nav { flex-direction: column; align-items: flex-start }
+      nav ul {
+        width: 100%; display: flex;
+        justify-content: space-between;
+        margin-top: 0.5rem;
+      }
+      nav ul li:not(:first-child):not(:last-child) {
+        display: none;
+      }
     }
-    @media (max-width: 700px) {
-      header { padding-left: 10px; font-size: 1.1rem;}
-      .logo-img { width: 38px; height: 38px; left: 5px; top: 7px;}
-      .home-btn { font-size: 0.74em; left: 48px; top: 3px; padding: 0.09em 0.45em; min-width: 25px;}
-    }
+
+    /* CONTACT FORM */
     .container {
       max-width: 500px;
       margin: 2rem auto;
-      background: rgba(255,255,255,0.96);
-      border-radius: 14px;
-      box-shadow: 0 8px 32px rgba(30,60,114,0.09);
-      padding: 2rem 1.5rem 1.5rem 1.5rem;
-      display: flex;
-      flex-direction: column;
-      gap: 2rem;
+      background: rgba(255,255,255,0.95);
+      border-radius: 12px;
+      padding: 2rem 1.5rem;
+      box-shadow: 0 8px 32px rgba(30,60,114,0.12);
     }
-    .owner-details {
-      background: #f2f7fd;
-      border-radius: 9px;
-      padding: 1.1rem 1rem;
-      box-shadow: 0 1px 5px #eaf2ff44;
-      font-size: 1rem;
+    .container h2 {
+      text-align: center;
+      margin-bottom: 1rem;
+      color: #1e3c72;
     }
-    .owner-details h3 {
-      margin-top: 0;
-      color: #0057b7;
-      font-size: 1.18rem;
-      font-weight: 700;
-      margin-bottom: 0.3em;
-    }
-    .owner-details p {
-      margin: 0.12em 0;
-      color: #1a2954;
-      font-size: 1.01rem;
-    }
-    .contact-form {
-      display: flex;
-      flex-direction: column;
-      gap: 0.8rem;
-      background: #eaf3ff;
-      border-radius: 9px;
-      padding: 1.3rem 1rem;
-      box-shadow: 0 1px 6px #e3eafc5b;
-    }
-    .contact-form label {
+    .container label {
+      display: block;
+      margin-top: 1rem;
       font-weight: 600;
       color: #003366;
-      margin-bottom: 0.12rem;
-      font-size: 1.07rem;
     }
-    .contact-form input, .contact-form textarea {
-      border-radius: 6px;
+    .container input,
+    .container textarea {
+      width: 100%;
+      padding: 0.6rem;
+      margin-top: 0.3rem;
       border: 1px solid #c7dcfa;
-      padding: 0.69em;
-      font-size: 1.08rem;
-      outline: none;
-      background: #fff;
-      resize: vertical;
+      border-radius: 6px;
+      font-size: 1rem;
       font-family: inherit;
     }
-    .contact-form button {
-      background: linear-gradient(90deg,#0057b7,#2a5298);
+    .container button {
+      margin-top: 1.5rem;
+      width: 100%;
+      padding: 0.8rem;
+      background: linear-gradient(90deg,#1e3c72,#2a5298);
       color: #fff;
       font-weight: 700;
       border: none;
-      border-radius: 7px;
-      padding: 0.85em 1em;
-      font-size: 1.12em;
-      margin-top: 0.5em;
+      border-radius: 6px;
+      font-size: 1.05rem;
       cursor: pointer;
-      transition: background 0.18s;
-      box-shadow: 0 1px 6px #bedcff36;
+      transition: background 0.2s;
     }
-    .contact-form button:hover {
+    .container button:hover {
       background: linear-gradient(90deg,#15304b,#2a5298);
-      color: #ffe165;
+    }
+
+    /* FLOATING ICONS */
+    .floating-whatsapp,
+    .floating-facebook {
+      position: fixed;
+      width: 54px; height: 54px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      background: #fff;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.16);
+      z-index: 9999;
+      transition: transform 0.15s;
+    }
+    .floating-whatsapp { right: 18px; bottom: 22px }
+    .floating-facebook { right: 18px; bottom: 90px }
+    .floating-whatsapp img,
+    .floating-facebook img {
+      width: 32px; height: 32px;
     }
     @media (max-width: 600px) {
-      .container { padding: 1.1rem 0.4rem; }
+      .floating-whatsapp,
+      .floating-facebook {
+        width: 44px; height: 44px;
+      }
+      .floating-whatsapp { bottom: 22px; right: 10px }
+      .floating-facebook { bottom: 68px; right: 10px }
+      .floating-whatsapp img,
+      .floating-facebook img {
+        width: 24px; height: 24px;
+      }
     }
   </style>
 </head>
 <body>
+
   <header>
-    <a href="index.html" class="home-btn">Home</a>
-    <img src="assets/images/logo.png" alt="VIONYX Logo" class="logo-img">
-    <span class="header-title">VIONYX Event Venue</span>
-    <span class="header-subtitle">Contact & Enquiry</span>
-  </header>
-  <div class="container">
-    <div class="owner-details">
-      <h3>Venue Contact Details</h3>
-      <p><b>Venue Name:</b> VIONYX Event Hall</p>
-      <p><b>Owner:</b> Mr. A. Example</p>
-      <p><b>Phone:</b> 01234 567890</p>
-      <p><b>Email:</b> <a href="mailto:venue@vionyx.tech" style="color:#0057b7;text-decoration:underline;">venue@vionyx.tech</a></p>
-      <p><b>Location:</b> 123 Main Street, City, Postcode</p>
+    <div class="logo-nav">
+      <img src="assets/images/logo.png" alt="VIONYX Logo"/>
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="rooms.html">Function Rooms</a></li>
+          <li><a href="events.html">Events</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="contact.html" style="color:#ffe165;">Contact Us</a></li>
+          <li><a href="booking.html">Check Availability</a></li>
+        </ul>
+      </nav>
     </div>
-    <form class="contact-form">
-      <label for="cf-name">Your Name</label>
-      <input type="text" id="cf-name" name="cf-name" required>
-      <label for="cf-email">Your Email</label>
-      <input type="email" id="cf-email" name="cf-email" required>
-      <label for="cf-phone">Phone Number</label>
-      <input type="tel" id="cf-phone" name="cf-phone" required>
-      <label for="cf-message">Message / Enquiry</label>
-      <textarea id="cf-message" name="cf-message" rows="4" required></textarea>
-      <button type="submit">Send Enquiry</button>
+  </header>
+
+  <div class="container">
+    <h2>Contact Us</h2>
+    <form id="contactForm">
+      <label for="name">Full Name</label>
+      <input id="name" name="name" type="text" required placeholder="Your name"/>
+
+      <label for="email">Email Address</label>
+      <input id="email" name="email" type="email" required placeholder="you@email.com"/>
+
+      <label for="phone">Phone Number</label>
+      <input id="phone" name="phone" type="tel" required placeholder="07123 456789"/>
+
+      <label for="message">Your Message</label>
+      <textarea id="message" name="message" rows="4" required placeholder="How can we help?"></textarea>
+
+      <button type="submit">Send Message</button>
     </form>
   </div>
+
+  <script>
+    document.getElementById('contactForm').addEventListener('submit', function(e){
+      e.preventDefault();
+      alert("Thank you! We'll be in touch soon.");
+      this.reset();
+    });
+  </script>
+
+  <!-- Floating WhatsApp & Facebook Icons -->
+  <a href="https://wa.me/447123456789" class="floating-whatsapp" target="_blank" aria-label="WhatsApp">
+    <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/whatsapp.svg" alt="WhatsApp"/>
+  </a>
+  <a href="https://www.facebook.com/messages/t/yourfacebookpageid" class="floating-facebook" target="_blank" aria-label="Facebook Messenger">
+    <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/facebook.svg" alt="Facebook"/>
+  </a>
+
 </body>
 </html>
