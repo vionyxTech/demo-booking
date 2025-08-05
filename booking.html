@@ -4,56 +4,185 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Vionyx Venue Booking</title>
+
+  <!-- FullCalendar CSS -->
   <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css" rel="stylesheet" />
+
   <style>
-    /* ... your existing styles ... */
-    body {font-family:'Segoe UI',sans-serif;margin:0;background-image:url('https://images.unsplash.com/photo-1565182999561-4b8ec785b24e?auto=format&fit=crop&w=1500&q=80');background-size:cover;background-position:center;background-attachment:fixed;background-repeat:no-repeat;background-color:rgba(0,0,0,0.5);background-blend-mode:overlay;color:#222;}
-    .home-btn {position:fixed;top:20px;left:20px;z-index:1002;background:linear-gradient(90deg,#1e3c72,#2a5298);color:#fff;font-weight:600;padding:0.29em 1.08em;border-radius:8px;border:none;text-decoration:none;font-size:0.95em;box-shadow:0 1px 8px #21346e22;transition:background 0.19s,color 0.17s;display:inline-block;min-width:56px;text-align:center;opacity:0.93;}
-    .home-btn:hover {background:linear-gradient(90deg,#15304b,#2a5298);color:#ffe165;opacity:1;}
-    @media (max-width:600px) {.home-btn {top:10px;left:8px;font-size:0.85em;padding:0.18em 0.65em;}}
-    header {background-image:url('https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=1200&q=80');background-size:cover;background-position:center;background-repeat:no-repeat;min-height:100px;color:white;padding:1.5rem 1rem 1.5rem 1rem;text-align:center;font-size:2rem;font-weight:bold;box-shadow:0 8px 32px 0 rgba(0,0,0,0.16);position:relative;border:none;display:flex;flex-direction:column;align-items:center;gap:0.6rem;}
-    header::after {content:"";position:absolute;inset:0;background:rgba(0,51,102,0.32);z-index:0;}
-    .header-title {position:relative;z-index:1;text-shadow:0 3px 16px rgba(0,0,0,0.30);font-family:'Segoe UI',SegoeUI-Bold,sans-serif;letter-spacing:1.5px;}
-    .container {display:flex;flex-direction:column;gap:1rem;padding:1rem;background-color:rgba(255,255,255,0.85);border-radius:12px;max-width:980px;margin:1.5rem auto;box-shadow:0 6px 24px rgba(0,0,0,0.3);}
-    .info-note {font-size:1.1rem;color:#003366;font-weight:600;margin-left:0.5rem;}
-    .selected-date-time {display:none;background:#eaf3ff;border-radius:8px;margin:0.5rem 0 1.1rem 0;padding:0.75rem 1rem;color:#0057b7;font-weight:600;font-size:1.13em;text-align:center;box-shadow:0 1px 6px #bedcff36;}
-    .calendar-bg-image {position:relative;overflow:hidden;padding:0;}
-    .calendar-bg-image::before {content:"";position:absolute;inset:0;z-index:0;background-image:url('https://images.unsplash.com/photo-1519677100203-a0e668c92439?auto=format&fit=crop&w=900&q=80');background-size:cover;background-position:center;filter:blur(2px) brightness(0.65);opacity:0.8;pointer-events:none;}
-    #calendar {position:relative;z-index:1;background:transparent !important;}
-    .fc {background:transparent !important;border-radius:8px;color:#fff;}
+    /* ——— HEADER & NAV (exact from index.html) ——— */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    header {
+      width: 100%;
+      position: absolute;
+      top: 0; left: 0; z-index: 12;
+      background: rgba(24,32,48,0.38);
+      backdrop-filter: blur(6px) saturate(150%);
+      -webkit-backdrop-filter: blur(6px) saturate(150%);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.17);
+    }
+    .logo-nav {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0.5rem 2rem;
+    }
+    .logo-nav img {
+      height: 60px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.10);
+      background: #fff;
+      padding: 2px;
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 2rem;
+    }
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      padding: 0.5rem 0;
+      position: relative;
+      letter-spacing: 0.02em;
+      transition: color 0.18s;
+    }
+    nav a:hover { color: #ffe165; }
+    nav a::after {
+      content: '';
+      position: absolute; left: 0; bottom: -4px;
+      width: 0; height: 2px;
+      background: #ffdd57;
+      transition: width 0.3s;
+    }
+    nav a:hover::after { width: 100%; }
+
+    /* Mobile (≤900px): only Home + Contact Us */
+    @media (max-width: 900px) {
+      .logo-nav { flex-direction: column; align-items: flex-start; }
+      nav ul {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        margin-top: 0.5rem;
+      }
+      nav ul li:not(:first-child):not(:nth-child(5)) {
+        display: none;
+      }
+    }
+
+    /* ——— BODY & ORIGINAL STYLES ——— */
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      color: #333;
+      margin: 0;
+      padding-top: calc(60px + 1rem);
+      background:
+        linear-gradient(135deg,#21235e 0%,#537895 100%),
+        url('https://www.transparenttextures.com/patterns/cubes.png');
+      background-blend-mode: overlay;
+      background-attachment: fixed;
+    }
+    .spacer { height: calc(60px + 1rem); }
+
+    .container {
+      max-width: 980px;
+      margin: 1.5rem auto;
+      background: rgba(255,255,255,0.85);
+      border-radius: 12px;
+      padding: 1rem;
+      box-shadow: 0 6px 24px rgba(0,0,0,0.3);
+      display: flex; flex-direction: column; gap: 1rem;
+    }
+    .info-note { font-size:1.1rem; color:#003366; font-weight:600; }
+    .selected-date-time {
+      display:none;
+      background:#eaf3ff; border-radius:8px;
+      padding:.75rem 1rem; font-weight:600; color:#0057b7;
+      text-align:center; box-shadow:0 1px 6px #bedcff36;
+      margin:.5rem 0 1rem;
+    }
+    .calendar-bg-image { position:relative; overflow:hidden; }
+    .calendar-bg-image::before {
+      content:""; position:absolute; inset:0; z-index:0;
+      background:
+        url('https://images.unsplash.com/photo-1519677100203-a0e668c92439?auto=format&fit=crop&w=900&q=80')
+        center/cover no-repeat;
+      filter: blur(2px) brightness(0.65);
+      opacity:0.8;
+    }
+    #calendar { position:relative; z-index:1; background:transparent!important; }
+    .fc { background:transparent!important; }
     .fc .fc-col-header-cell-cushion,
     .fc .fc-daygrid-day-number,
     .fc .fc-daygrid-event,
-    .fc .fc-daygrid-event .fc-event-title {color:#fff !important;font-weight:700;text-shadow:0 2px 6px #222,0 0 2px #000;}
-    .fc .fc-daygrid-day:hover {background-color:rgba(0,87,183,0.13) !important;}
-    #slot-list {display:flex;flex-wrap:wrap;gap:0.5rem;}
-    .slot {flex:1 0 30%;padding:0.6rem;border-radius:6px;background:rgba(230,240,255,0.8);border:1px solid #0057b7;text-align:center;cursor:pointer;font-weight:500;color:#003366;}
-    .slot.booked {background:rgba(200,200,200,0.5);color:#666;pointer-events:none;}
-    .slot.selected {background-color:#0057b7;color:white;font-weight:bold;}
-    #booking-form {display:none;flex-direction:column;gap:0.7rem;}
-    label {font-weight:600;}
-    input, textarea, button {padding:0.6rem;border-radius:6px;border:1px solid #ccc;width:100%;}
-    button {background-color:#0057b7;color:white;border:none;font-size:1rem;transition:background-color 0.2s;}
-    button:hover {background-color:#004494;}
-    #greetings-section {display:none;flex-direction:column;align-items:center;gap:1.2rem;background:#eaf3ff;border-radius:10px;margin-top:1.2rem;padding:2rem 1.5rem 1.2rem 1.5rem;box-shadow:0 2px 16px #bedcff36;}
-    #greetings-section h3 {color:#0057b7;margin-bottom:0.2em;font-size:1.23rem;text-align:center;}
-    #greetings-section p {color:#1a2954;font-size:1.08rem;text-align:center;}
-    #paynow-btn {padding:0.7em 2.3em;font-size:1.13em;font-weight:700;background:linear-gradient(90deg,#0057b7,#1e7eda);border-radius:9px;border:none;color:#fff;margin-top:0.7em;cursor:pointer;transition:background 0.18s;}
-    #paynow-btn:hover {background:linear-gradient(90deg,#15304b,#2a5298);}
-    #payment-methods {display:none;flex-direction:column;align-items:center;gap:1.2em;margin:1.4em 0;}
-    .pay-method-btn {background:#fff;color:#0057b7;border:2px solid #0057b7;font-size:1.13em;font-weight:600;border-radius:8px;padding:0.7em 2em;margin:0.15em 0;cursor:pointer;transition:background 0.17s,color 0.18s;width:240px;box-shadow:0 1px 6px #e3eafc5b;}
-    .pay-method-btn:hover {background:#0057b7;color:#fff;}
-    #payment-success {display:none;flex-direction:column;align-items:center;gap:1.2rem;background:#eaf3ff;border-radius:10px;margin-top:1.2rem;padding:2rem 1.5rem 1.2rem 1.5rem;box-shadow:0 2px 16px #bedcff36;}
-    #payment-success h3 {color:#249f37;margin-bottom:0.3em;font-size:1.22rem;}
-    #payment-success p {color:#1a2954;font-size:1.08rem;text-align:center;}
-    @media (max-width: 768px) {.slot {flex:1 0 45%;}.container {padding:1rem;margin:0.5rem;border-radius:0;}header {font-size:1.3rem;padding:1.2rem 0.5rem 1.1rem 0.5rem;min-height:80px;}}
+    .fc .fc-daygrid-event .fc-event-title {
+      color:#fff!important; font-weight:700; text-shadow:0 2px 6px #000;
+    }
+    .fc .fc-daygrid-day:hover { background:rgba(0,87,183,0.13)!important; }
+    #slot-list { display:flex; flex-wrap:wrap; gap:.5rem; }
+    .slot {
+      flex:1 0 30%; padding:.6rem; border-radius:6px;
+      background:rgba(230,240,255,0.8); border:1px solid #0057b7;
+      text-align:center; color:#003366; cursor:pointer; font-weight:500;
+    }
+    .slot.booked { background:#ddd; color:#666; cursor:default; }
+    .slot.selected { background:#0057b7; color:#fff; }
+    #booking-form { display:none; flex-direction:column; gap:.7rem; }
+    label { font-weight:600; }
+    input, textarea, button {
+      width:100%; padding:.6rem; border-radius:6px; border:1px solid #ccc;
+    }
+    button {
+      background:#0057b7; color:#fff; border:none; cursor:pointer; transition:background .2s;
+    }
+    button:hover { background:#004494; }
+
+    #greetings-section,
+    #payment-methods,
+    #payment-success {
+      display:none; flex-direction:column; align-items:center; gap:1rem;
+    }
+    /* Floating icons */
+    .floating-whatsapp, .floating-facebook {
+      position:fixed; width:54px; height:54px;
+      border-radius:50%; background:#fff;
+      display:flex; align-items:center; justify-content:center;
+      box-shadow:0 2px 10px rgba(0,0,0,0.16); z-index:9999;
+    }
+    .floating-whatsapp { right:18px; bottom:22px; }
+    .floating-facebook { right:18px; bottom:90px; }
+    .floating-whatsapp img, .floating-facebook img { width:32px; height:32px; }
+    @media (max-width:600px) {
+      .floating-whatsapp, .floating-facebook { width:44px; height:44px; }
+      .floating-whatsapp { right:10px; bottom:22px; }
+      .floating-facebook { right:10px; bottom:68px; }
+      .floating-whatsapp img, .floating-facebook img { width:24px; height:24px; }
+    }
   </style>
 </head>
 <body>
-  <a href="index.html" class="home-btn">Home</a>
+
+  <!-- HEADER/Nav -->
   <header>
-    <span class="header-title">Vionyx Venue Booking</span>
+    <div class="logo-nav">
+      <img src="assets/images/logo.png" alt="VIONYX Logo" />
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="rooms.html">Function Rooms</a></li>
+          <li><a href="events.html">Events</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+          <li><a href="booking.html">Check Availability</a></li>
+        </ul>
+      </nav>
+    </div>
   </header>
+
+  <div class="spacer"></div>
+
+  <!-- PAGE CONTENT -->
   <div class="container">
     <div class="info-note">Select a date to start booking</div>
     <div id="selected-date-time" class="selected-date-time"></div>
@@ -86,7 +215,7 @@
     </div>
     <div class="calendar-card" id="payment-methods">
       <h3>Choose Your Payment Method</h3>
-      <button class="pay-method-btn" onclick="completePayment('Card')">💳 Pay by Card (Visa/Mastercard)</button>
+      <button class="pay-method-btn" onclick="completePayment('Card')">💳 Pay by Card</button>
       <button class="pay-method-btn" onclick="completePayment('PayPal')">🌐 PayPal</button>
       <button class="pay-method-btn" onclick="completePayment('Apple/Google Pay')">📱 Apple/Google Pay</button>
       <button class="pay-method-btn" onclick="completePayment('Bank Transfer')">🏦 Bank Transfer</button>
@@ -101,10 +230,11 @@
       </p>
     </div>
   </div>
-  <div id="popup" style="position:fixed;top:20px;left:50%;transform:translateX(-50%);background-color:#0057b7;color:white;padding:0.75rem 1.5rem;border-radius:6px;font-size:1rem;box-shadow:0 4px 12px rgba(0,0,0,0.3);opacity:0;transition:opacity 0.3s;z-index:9999;"></div>
+
+  <!-- FullCalendar & JS Logic -->
   <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
   <script>
-    document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', function() {
       const calendarEl = document.getElementById('calendar');
       const slotList = document.getElementById('slot-list');
       const bookingForm = document.getElementById('booking-form');
@@ -116,210 +246,163 @@
       const paymentMethods = document.getElementById('payment-methods');
       const paymentSuccess = document.getElementById('payment-success');
       const receiptMessage = document.getElementById('receipt-message');
-      const popup = document.getElementById('popup');
-      const selectedDateTimeDisplay = document.getElementById('selected-date-time');
-      const successDateTime = document.getElementById('success-date-time');
-      let emailForReceipt = "";
+      const popup = document.createElement('div');
+      popup.style.cssText = 'position:fixed;top:20px;left:50%;transform:translateX(-50%);background:#0057b7;color:#fff;padding:.75rem 1.5rem;border-radius:6px;font-size:1rem;opacity:0;transition:opacity .3s;z-index:9999;';
+      document.body.appendChild(popup);
 
-      // LOTS OF BOOKINGS, VARIED DURATIONS & DATES!
+      let sessionBookedEvents = [];
+      let startHour = null, endHour = null, currentDate = '', globalDateTimeString = '';
+      let allSlotDivs = [], finalTotal = 0, sessionBookingRange = null;
+
       const bookedEvents = [
-        // This month (August 2025)
         { title: 'Wedding (10:00–13:00)', start: '2025-08-04T10:00:00', end: '2025-08-04T13:00:00' },
         { title: 'Birthday Party (14:00–19:00)', start: '2025-08-04T14:00:00', end: '2025-08-04T19:00:00' },
         { title: 'Anniversary Lunch (11:00–15:00)', start: '2025-08-10T11:00:00', end: '2025-08-10T15:00:00' },
-        { title: 'Conference (9:00–17:00)', start: '2025-08-13T09:00:00', end: '2025-08-13T17:00:00' },
-        { title: 'Music Festival (18:00–23:30)', start: '2025-08-14T18:00:00', end: '2025-08-14T23:30:00' },
-        { title: 'Business Meetup (09:00–13:00)', start: '2025-08-19T09:00:00', end: '2025-08-19T13:00:00' },
-        { title: 'Engagement (12:00–18:00)', start: '2025-08-23T12:00:00', end: '2025-08-23T18:00:00' },
-        // September 2025
-        { title: 'Baby Shower (10:00–14:00)', start: '2025-09-03T10:00:00', end: '2025-09-03T14:00:00' },
-        { title: 'Training Session (15:00–19:00)', start: '2025-09-05T15:00:00', end: '2025-09-05T19:00:00' },
-        { title: 'Seminar (9:00–21:00)', start: '2025-09-10T09:00:00', end: '2025-09-10T21:00:00' },
-        { title: 'Workshop (9:00–13:00)', start: '2025-09-12T09:00:00', end: '2025-09-12T13:00:00' },
-        { title: 'Cultural Event (16:00–23:00)', start: '2025-09-18T16:00:00', end: '2025-09-18T23:00:00' },
-        { title: 'Yoga Retreat (multi-day)', start: '2025-09-20T07:00:00', end: '2025-09-22T12:00:00' },
-        // October 2025
-        { title: 'Fashion Show (13:00–22:00)', start: '2025-10-04T13:00:00', end: '2025-10-04T22:00:00' },
-        { title: 'Tech Conference (9:00–18:00)', start: '2025-10-15T09:00:00', end: '2025-10-15T18:00:00' },
-        // December 2025
-        { title: 'Christmas Party (18:00–23:59)', start: '2025-12-24T18:00:00', end: '2025-12-24T23:59:00' },
-        { title: 'Boxing Day Bash (11:00–23:00)', start: '2025-12-26T11:00:00', end: '2025-12-26T23:00:00' },
-        // January 2026
-        { title: 'New Year Gala (17:00–01:00)', start: '2026-01-01T17:00:00', end: '2026-01-02T01:00:00' },
-        // March 2026
-        { title: 'Medical Conference (8:00–22:00)', start: '2026-03-12T08:00:00', end: '2026-03-12T22:00:00' },
-        // May 2026 (multi-day)
-        { title: 'Trade Expo (multi-day)', start: '2026-05-01T10:00:00', end: '2026-05-03T20:00:00' },
-        // June 2026
-        { title: 'Kids Summer Camp (8:00–19:00)', start: '2026-06-10T08:00:00', end: '2026-06-10T19:00:00' },
-        // July 2026
-        { title: 'Mega Wedding (08:00–22:00)', start: '2026-07-18T08:00:00', end: '2026-07-18T22:00:00' }
+        { title: 'Conference (9:00–17:00)',       start: '2025-08-13T09:00:00', end:   '2025-08-13T17:00:00' },
+        { title: 'Music Festival (18:00–23:30)',  start: '2025-08-14T18:00:00', end:   '2025-08-14T23:30:00' },
+        { title: 'Business Meetup (09:00–13:00)', start: '2025-08-19T09:00:00', end:   '2025-08-19T13:00:00' },
+        { title: 'Engagement (12:00–18:00)',      start: '2025-08-23T12:00:00', end:   '2025-08-23T18:00:00' },
+        { title: 'Baby Shower (10:00–14:00)',     start: '2025-09-03T10:00:00', end:   '2025-09-03T14:00:00' },
+        { title: 'Training Session (15:00–19:00)',start: '2025-09-05T15:00:00', end:   '2025-09-05T19:00:00' }
       ];
-      let sessionBookedEvents = [];
 
       const calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: 'dayGridMonth',
         height: 'auto',
-        selectable: true,
-        displayEventTime: true, // <-- always show start/end time
-        select: function (info) {
-          renderSlots(info.startStr);
-          showPopup("Please select a time slot");
-        },
-        dateClick: function(info) {
-          renderSlots(info.dateStr);
-          showPopup("Please select a time slot");
-        },
-        events: [...bookedEvents]
+        events: bookedEvents,
+        dateClick: info => selectDate(info.dateStr),
       });
       calendar.render();
 
-      let startHour = null, endHour = null, currentDate = '', globalDateTimeString = '';
-      let allSlotDivs = [], finalTotal = 0, sessionBookingRange = null;
+      function selectDate(dateStr) {
+        currentDate = dateStr;
+        resetSelection();
+        renderSlots(dateStr);
+        showPopup(`Selected date: ${dateStr}`);
+      }
 
-      function renderSlots(date) {
+      function renderSlots(dateStr) {
         slotList.innerHTML = '';
-        selectedRangeText.textContent = '';
-        totalAmountDisplay.textContent = '';
-        bookingForm.style.display = 'none';
-        greetingsSection.style.display = 'none';
-        paymentMethods.style.display = 'none';
-        paymentSuccess.style.display = 'none';
-        selectedDateTimeDisplay.style.display = 'none';
-        startHour = null; endHour = null; currentDate = date;
         allSlotDivs = [];
-        globalDateTimeString = '';
-
-        // Find all booked ranges (permanent and session)
-        const allBookedRanges = [
-          ...bookedEvents.filter(e => e.start.startsWith(date)).map(e => ({
+        const ranges = bookedEvents.concat(sessionBookedEvents)
+          .filter(e => e.start.startsWith(dateStr))
+          .map(e => ({
             min: new Date(e.start).getHours(),
-            max: new Date(e.end || e.start).getHours()
-          })),
-          ...sessionBookedEvents.filter(e => e.start.startsWith(date)).map(e => ({
-            min: new Date(e.start).getHours(),
-            max: new Date(e.end || e.start).getHours()
-          }))
-        ];
+            max: new Date(e.end||e.start).getHours()
+          }));
 
-        const hours = Array.from({ length: 17 }, (_, i) => i + 7);
-
-        hours.forEach(hour => {
+        for (let h = 7; h <= 23; h++) {
           const slot = document.createElement('div');
           slot.className = 'slot';
-          slot.textContent = `${hour}:00`;
-          slot.dataset.hour = hour;
-          // Is this hour inside any booked range?
-          if (allBookedRanges.some(r => hour >= r.min && hour <= r.max)) {
+          slot.textContent = `${h}:00`;
+          slot.dataset.hour = h;
+          if (ranges.some(r => h >= r.min && h <= r.max)) {
             slot.classList.add('booked');
           } else {
-            slot.onclick = () => handleSlotClick(hour);
+            slot.onclick = () => handleSlotClick(h);
           }
           allSlotDivs.push(slot);
           slotList.appendChild(slot);
-        });
+        }
       }
 
       function handleSlotClick(hour) {
-        if (startHour==null) {
+        if (startHour===null) {
           startHour=hour;
           highlightSlots(startHour,startHour);
           selectedRangeText.textContent=`Start: ${formatHour(startHour)}`;
-          globalDateTimeString = currentDate ? `<b>Date:</b> ${currentDate}` : '';
-          showPopup("Now select end time");
-          showSelectedDateTime();
-        } else if (endHour==null) {
+          globalDateTimeString=`<b>Date:</b> ${currentDate}`;
+          showPopup('Now select end time');
+        } else if (endHour===null) {
           endHour=hour;
           const min=Math.min(startHour,endHour), max=Math.max(startHour,endHour);
-          // Block overlapping with any existing booking (including session)
-          if (
-            [
-              ...bookedEvents,
-              ...sessionBookedEvents
-            ].filter(e=>e.start.startsWith(currentDate)).some(e=>{
-              const startH=new Date(e.start).getHours();
-              const endH=new Date(e.end || e.start).getHours();
-              return Math.max(startH,min) <= Math.min(endH,max);
-            })
-          ) {
-            showPopup("Some slots in this range are booked"); resetSlotSelection(); return;
+          if (rangesOverlap(min,max)) {
+            showPopup('Some slots in this range are booked');
+            return resetSelection();
           }
           highlightSlots(min,max);
-          const dur=max-min+1; finalTotal=dur*15;
-          selectedRangeText.textContent=`Selected: ${formatHour(min)} to ${formatHour(max)} (${dur} hr${dur>1?'s':''})`;
+          const dur=max-min+1;
+          finalTotal=dur*15;
+          selectedRangeText.textContent=
+            `Selected: ${formatHour(min)} to ${formatHour(max)} (${dur} hr${dur>1?'s':''})`;
           totalAmountDisplay.textContent=`Total Amount: £${finalTotal}`;
-          globalDateTimeString = currentDate
-            ? `<b>Date:</b> ${currentDate}, <b>Time:</b> ${formatHour(min)} to ${formatHour(max)}`
-            : '';
-          showSelectedDateTime();
-          sessionBookingRange = { date: currentDate, min, max };
+          globalDateTimeString=
+            `<b>Date:</b> ${currentDate}, <b>Time:</b> ${formatHour(min)} to ${formatHour(max)}`;
           bookingForm.style.display='flex';
-        } else resetSlotSelection();
+        } else resetSelection();
       }
 
-      function showSelectedDateTime() {
-        selectedDateTimeDisplay.innerHTML = globalDateTimeString;
-        selectedDateTimeDisplay.style.display = globalDateTimeString ? 'block' : 'none';
+      function rangesOverlap(min,max) {
+        return bookedEvents.concat(sessionBookedEvents)
+          .filter(e=>e.start.startsWith(currentDate))
+          .some(e=>{
+            const s=new Date(e.start).getHours();
+            const m=new Date(e.end||e.start).getHours();
+            return Math.max(s,min)<=Math.min(m,max);
+          });
       }
 
-      function highlightSlots(min,max){
-        allSlotDivs.forEach(el=>{const h=parseInt(el.dataset.hour);
-          el.classList.toggle('selected', h>=min && h<=max && !el.classList.contains('booked'));});
+      function highlightSlots(min,max) {
+        allSlotDivs.forEach(el=>{
+          const h=+el.dataset.hour;
+          el.classList.toggle('selected',
+            h>=min&&h<=max&&!el.classList.contains('booked'));
+        });
       }
-      function resetSlotSelection(){ startHour=endHour=null; finalTotal=0; selectedRangeText.textContent=''; totalAmountDisplay.textContent=''; bookingForm.style.display='none'; greetingsSection.style.display='none'; paymentMethods.style.display='none'; paymentSuccess.style.display='none'; allSlotDivs.forEach(el=>el.classList.remove('selected')); selectedDateTimeDisplay.style.display = 'none'; globalDateTimeString = ''; sessionBookingRange = null; }
 
-      function formatHour(h){const suf=h>=12?'PM':'AM', hr=h>12?h-12:h; return `${hr}:00 ${suf}`; }
-
-      bookingForm.onsubmit = e => {
-        e.preventDefault();
+      function resetSelection() {
+        startHour=endHour=null; finalTotal=0;
         bookingForm.style.display='none';
-        greetingsSection.style.display='flex';
-        greetingsDatetime.innerHTML = globalDateTimeString;
-        // Add a single session event for the whole range
-        if (sessionBookingRange) {
-          const { date, min, max } = sessionBookingRange;
-          const dtStart = new Date(date); dtStart.setHours(min, 0, 0, 0);
-          const dtEnd = new Date(date); dtEnd.setHours(max, 0, 0, 0);
-          // Grab function detail (strip newlines)
-          const functionDetail = (document.getElementById('function').value || '').replace(/\s+/g,' ').trim();
-          const event = {
-            title: `${functionDetail} (${formatHour(min)}–${formatHour(max)})`,
-            start: dtStart.toISOString().slice(0,16),
-            end: dtEnd.toISOString().slice(0,16)
-          };
-          sessionBookedEvents.push(event);
-          calendar.addEvent(event);
-        }
-      };
+        greetingsSection.style.display='none';
+        paymentMethods.style.display='none';
+        paymentSuccess.style.display='none';
+        slotList.querySelectorAll('.slot').forEach(el=>el.classList.remove('selected'));
+      }
 
-      paynowBtn.onclick = function() {
+      paynowBtn.onclick=()=>{
         greetingsSection.style.display='none';
         paymentMethods.style.display='flex';
       };
 
-      window.completePayment = function(method) {
-        paymentMethods.style.display = "none";
-        paymentSuccess.style.display = "flex";
-        emailForReceipt = document.getElementById('email').value || 'your email address';
-        successDateTime.innerHTML = `<b>Booking Date & Time:</b> ${globalDateTimeString}`;
-        receiptMessage.innerHTML = `
-          <b>A detailed booking receipt has been sent to:</b><br>
-          <span style="color:#0057b7;">${emailForReceipt}</span><br><br>
-          Please check your inbox (and spam folder).<br>
-          If you do not receive the receipt within a few minutes, please contact our team.
-        `;
-        showPopup(method + " payment successful!");
-        setTimeout(() => {
-          paymentSuccess.style.display = "none";
-          window.location.reload();
-        }, 5000);
+      bookingForm.onsubmit=e=>{
+        e.preventDefault();
+        greetingsSection.style.display='flex';
+        const {min,max} = sessionBookingRange = { date:currentDate, min:startHour, max:endHour };
+        const ds=new Date(currentDate); ds.setHours(min,0,0,0);
+        const de=new Date(currentDate); de.setHours(max,0,0,0);
+        const detail=document.getElementById('function').value.trim();
+        const ev={ title:`${detail} (${formatHour(min)}–${formatHour(max)})`,
+                   start:ds.toISOString().slice(0,16),
+                   end:de.toISOString().slice(0,16) };
+        sessionBookedEvents.push(ev);
+        calendar.addEvent(ev);
+      };
+
+      window.completePayment=method=>{
+        paymentMethods.style.display='none';
+        paymentSuccess.style.display='flex';
+        const email=document.getElementById('email').value||'';
+        successDateTime.innerHTML=`<b>Booking:</b> ${globalDateTimeString}`;
+        receiptMessage.innerHTML=`<b>Receipt sent to:</b><br><span style="color:#0057b7;">${email}</span>`;
+        showPopup(`${method} payment successful!`);
+        setTimeout(()=>location.reload(),5000);
       };
 
       function showPopup(msg){
         popup.textContent=msg; popup.style.opacity=1;
         setTimeout(()=>popup.style.opacity=0,2500);
       }
+
+      function formatHour(h){
+        const suf=h>=12?'PM':'AM', hr=h>12?h-12:h;
+        return `${hr}:00 ${suf}`;
+      }
     });
   </script>
+
+  <!-- Floating Icons -->
+  <a href="https://wa.me/447123456789" class="floating-whatsapp"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/whatsapp.svg" alt="WhatsApp"/></a>
+  <a href="https://www.facebook.com/messages/t/yourfacebookpageid" class="floating-facebook"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/facebook.svg" alt="Facebook"/></a>
+
 </body>
 </html>
